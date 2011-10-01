@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- vim:ts=8:sw=2
+    -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang=
+"ru-RU">
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for FreeBSD (vers 7 December 2008), see www.w3.org" />
+  <title>pNFSv4</title>
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+  <meta name="copyright" content=
+  "Copyright © 2010 Андрей Пантюхин" />
+  <link rel="stylesheet" href="slidy.css" type="text/css" media=
+  "screen, projection, print" />
+  <script src="slidy.js" charset="utf-8" type="text/javascript">
+</script>
+</head>
+<body>
+  <div class="slide cover title titlepage">
+    <h1>(p)NFS v4.x и не только</h1>
+    <h2>развитие сетевых файловых систем</h2>
+  </div>
+  <div class="slide">
+    <h1>хранилища</h1>
+    <ul>
+      <li>SAN - Storage Area Network</li>
+      <li>NAS - Network Attached Storage</li>
+      <li>DAS - Direct Attached Storage</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>хранилища</h1>
+    <ul>
+      <li>SAN - FC, FCoE, iSCSI, AoE, ...</li>
+      <li>NAS - NFS, SMB/CIFS, AFP, ...</li>
+      <li>DAS - SAS/SATA, IDE, USB, ...</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>NAS и SAN</h1>
+    <ul>
+      <li>SAN - low latency, простые протоколы, дорогое и сложное FC-железо</li>
+      <li>NAS - high latency, сложные протоколы, работает по сети</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>NAS и SAN: latency</h1>
+    <ul>
+      <li>SAN low latency теряется на логике FS</li>
+      <li>NAS high latency сглаживается кэшированием с обеих сторон</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>NAS и SAN: throughput</h1>
+    <ul>
+      <li>NFS отстаёт от FCP на 10-15%¹</li>
+      <li>NFS быстрее iSCSI на 5-10%¹</li>
+      <li>¹⁾отчёт NetApp tr-3581</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>NAS и SAN: reach</h1>
+    <ul>
+      <li>FC обычно в пределах ЦОД, редко до 100 км</li>
+      <li>NFS, SMB и iSCSI работают по IP, но не любят большие RTT</li>
+      <li>NFSv4 подходит для любых RTT</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>NAS и SAN: clustered storage</h1>
+    <ul>
+      <li>SAN: Oracle Exadata, … - сыровато, фокус на надёжности</li>
+      <li>NAS: Lustre, NetApp GX, Isilon, Panasas - проверено, фокус на скорости</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>NAS и SAN: будущее</h1>
+    <ul>
+      <li>NAS ☺</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>NAS</h1>
+    <ul>
+      <li>NFS - Unix</li>
+      <li>SMB/CIFS - Windows</li>
+      <li>AFP - Apple</li>
+      <li>Lustre, GPFS, … - Linux, proprietary</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>NFS</h1>
+    <ul>
+      <li>поддерживается всеми Unix</li>
+      <li>отлично работает на всех Mac OS X</li>
+      <li>работает даже на экзотике типа z/OS</li>
+      <li>сносно работает под Windows, есть хорошее коммерческое ПО</li>
+      <li>обрастает возможностями Lustre и GPFS</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>NFS: history</h1>
+    <ul>
+      <li>v1 - 1984 (Sun)</li>
+      <li>v2 - 1989 (Sun)</li>
+      <li>v3 - 1995 (Sun)</li>
+      <li>v4 - 2000, 2003 (IETF)</li>
+      <li>v4.1 - 2010 (IETF)</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>NFS: цели</h1>
+    <ul>
+      <li>лёгкость восстановления</li>
+      <li>независимость от транспорта, ОС и файловых систем</li>
+      <li>простота</li>
+      <li>хорошая скорость</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>NFS: basics</h1>
+    <ul>
+      <li>работает по TCP и UDP</li>
+      <li>на основе протоколов ONC RPC и XDR</li>
+      <li>аутентификация и шифрование через GSS (Kerberos)</li>
+      <li>авторизация через политики exports, ACL</li>
+      <li>advisory locks до v3, в v4 - mandatory</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>NFS v4: новые цели</h1>
+    <ul>
+      <li>лучшая доступность и скорость over Internet</li>
+      <li>обязательная безопасность, negotiation</li>
+      <li>настоящая кросс-платформенность</li>
+      <li>лёгкость расширений</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>NFS v4: результаты</h1>
+    <ul>
+      <li>перешёл из Sun в IETF</li>
+      <li>RPCSEC_GSS, Kerberos security schemes</li>
+      <li>stateful-архитектура</li>
+      <li>compound RPC</li>
+      <li>сделан глядя на CIFS и AFS</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>NFS v4: безопасность</h1>
+    <ul>
+      <li>RPCSEC_GSS (RFC2203)</li>
+      <li>authentication, integrity, privacy</li>
+      <li>Kerberos V5 (RFC1964)</li>
+      <li>LIPKEY (RFC2874)</li>
+      <li>in-band negotiation</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>NFS v4: COMPOUND RPC</h1>
+    <ul>
+      <li>чтение файла с нового сервера одним запросом</li>
+      <li>эффективность HTTP</li>
+      <li>кэширование двух filehandles в "регистрах"</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>NFS v4: файловая модель</h1>
+    <ul>
+      <li>только UTF-8</li>
+      <li>монтирования нет, сервер отдаёт один ROOT FH</li>
+      <li>все экспортируемые фс склеиваются в одну иерархию</li>
+      <li>гибкие, расширяемые атрибуты, включая ACL и locations</li>
+      <li>именованные owner, group</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>NFS v4: репликация и миграция</h1>
+    <ul>
+      <li>атрибут locations может сообщать клиенту о других серверах</li>
+      <li>клиент мигрирует при отключении текущего сервера</li>
+      <li>клиент может балансировать нагрузку между репликами</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>NFS v4: locking</h1>
+    <ul>
+      <li>встроенный byte-range locking</li>
+      <li>lease-модель обеспечивает быстрое восстановление</li>
+      <li>вечно подвисших locks больше нет</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>NFS v4: caching, delegation</h1>
+    <ul>
+      <li>кэширование директорий и атрибутов определяется клиентом</li>
+      <li>кэши данных валидируются при открытии</li>
+      <li>делегирование - разрешение на локальную обработку запросов</li>
+      <li>позволяет работать с активными NFS-файлами на локальном диске</li>
+      <li>первый шаг к настоящей распределённости</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>NFS v4: support</h1>
+    <ul>
+      <li>Solaris - самая полная поддержка</li>
+      <li>Linux - широкая поддержка, есть баги</li>
+      <li>FreeBSD - поддержка сыровата, есть баги</li>
+      <li>NetApp - широкая поддержка, есть ограничения</li>
+      <li>Isilon, Panasas, AIX, z/OS - есть поддержка в разном состоянии</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>NFS v4.1: новые цели</h1>
+    <ul>
+      <li>RFC5661 - самый длинный RFC-документ в истории</li>
+      <li>исправление структурных недостатков NFS</li>
+      <li>дополнение v4 на основе опыта промышленного использования</li>
+      <li>поддержка кластеров и параллельного доступа (pNFS)</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>pNFS</h1>
+    <ul>
+      <li>EMC, IBM, LSI, NetApp, Panasas, Google, Sun, …</li>
+      <li>промышленный опыт: NetApp, Panasas, Isilon, …</li>
+      <li>в открытой разработке с 2004 года, релиз в январе 2010</li>
+      <li>NFSv4.1, block pNFS (RFC5663), object pNFS (RFC5664)</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>pNFS I/O</h1>
+    <ul>
+      <li>файлы, объекты или блоки</li>
+      <li>NFSv4.1 даёт клиенту layout и доступ к storage</li>
+      <li>клиент производит I/O напрямую</li>
+      <li>клиент отдаёт серверу новый layout</li>
+      <li>клиент может всегда выбрать обычный NFSv4.1 I/O</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>pNFS: поддержка</h1>
+    <ul>
+      <li>клиенты: Linux, Solaris, …</li>
+      <li>серверы: NetApp, Panasas, Linux, Solaris, IBM, EMC, …</li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1></h1>
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1></h1>
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1></h1>
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1></h1>
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1></h1>
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+  <div class="slide titlepage">
+    <h2><a href="http://wiki.cenkes.org/Cenkes/pNFSv4x">wiki.cenkes.org/pNFSv4</a></h2>
+    <h4><a href="http://www.NFSv4.org/">www.NFSv4.org</a></h4>
+    <h4><a href="http://www.pNFS.com/">www.pNFS.com</a></h4>
+    <h4><a href="http://tools.ietf.org/wg/nfsv4/">IETF NFSv4 WG</a></h4>
+  </div>
+</body>
+</html>

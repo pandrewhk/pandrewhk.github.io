@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- vim:ts=8:sw=2
+    -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang=
+"ru-RU">
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for FreeBSD (vers 7 December 2008), see www.w3.org" />
+  <title>ClusterBSD</title>
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+  <meta name="copyright" content=
+  "Copyright © 2010 Андрей Пантюхин" />
+  <link rel="stylesheet" href="slidy.css" type="text/css" media=
+  "screen, projection, print" />
+  <script src="slidy.js" charset="utf-8" type="text/javascript">
+</script>
+</head>
+<body>
+  <div class="slide cover title titlepage">
+    <h2>Кластер Unix/FreeBSD без cfengine и puppet</h2>
+    <h3>сохраняя контроль, здравомыслие и время на сон</h3>
+  </div>
+  <div class="slide">
+    <h1>О чём это мы?</h1>
+    <ul>
+      <li>набор разношёрстных проблем</li>
+      <li>практика решения некоторых из них</li>
+      <li>теория «правильного» решения других</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Кластер</h1>
+    <ul>
+      <li>две и более машин, реальных или виртуальных</li>
+      <li>Unix: Linux, FreeBSD, <del>Solaris, AIX, HP-UX</del></li>
+      <li>Other: Windows, vSphere, <del>z/OS</del></li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Linux</h1>
+    <ul>
+      <li>xCAT - самое мощное</li>
+      <li>ROCKS - самое простое</li>
+      <li>ещё три миллиона забытых решений</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>xCAT</h1>
+    <ul>
+      <li>разрабатывается IBM; теперь и Sumavi</li>
+      <li>заметный фокус на решения IBM</li>
+      <li>Perl, Perl, Perl</li>
+      <li>гибкое, но монолитное решение</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>ROCKS</h1>
+    <ul>
+      <li>цельный дистрибутив на базе CentOS</li>
+      <li>супермонолит</li>
+      <li>быстрый deployment</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>FreeBSD?!</h1>
+    <ul>
+      <li>нет доступного InfiniBand (NetApp, Isilon, …)</li>
+      <li>нет коммерческого софта</li>
+      <li>мало открытого HPC-софта</li>
+      <li>и вообще HPC == Linux! (?)</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>FreeBSD!!</h1>
+    <ul>
+      <li>отличная бездисковая работа</li>
+      <li>Brooks Davis - Aerospace Corp.</li>
+      <li>Harrison Grundy - Astrodog Ltd.</li>
+      <li>Industrial Light &nbsp; Magic; Manex VFX («The Matrix»), …</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>проблемы Linux</h1>
+    <ul>
+      <li>Enterprise Linux? … уж лучше Solaris</li>
+      <li>заброшенная поддержка бездисковой работы</li>
+      <li>страшная документация (ifconfig deprecated, ip unused)</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>инфраструктура</h1>
+    <ul>
+      <li>AAA - Authentication, Authorization, Accounting</li>
+      <li>хранение данных - локально и центрально</li>
+      <li>управление - от установки до отказа</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>AAA</h1>
+    <ul>
+      <li><del>Active Directory</del> LDAP</li>
+      <li><em>Kerberos</em></en></li>
+      <li>PAM, …</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>LDAP</h1>
+    <ul>
+      <li>непривычное, но очень удобное представление данных</li>
+      <li>унылое серверное ПО, но OpenLDAP съедобен</li>
+      <li>pam_ldap, nss_ldap, <del>nscd</del></li>
+      <li>RootConf 2009 (http://rootconf.ru/papers2009/11822.html)</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Kerberos</h1>
+    <ul>
+      <li>самый безопасный и удобный протокол аутентификации и SSO</li>
+      <li>MIT, Heimdal, Windows, Solaris, …</li>
+      <li>никак не встанет на ноги сам по себе</li>
+      <li>путаница с шифрованием, сложность дебага, …</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Stateless</h1>
+    <ul>
+      <li>PXE boot</li>
+      <li>read-only NFS root</li>
+      <li>read-write swap-backed unionfs</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>PXE</h1>
+    <ul>
+      <li>pxelinux+pxeboot или просто pxeboot</li>
+      <li>tftp-hpa, изредка теряются коннекты</li>
+      <li>ISC dhcpd, Cisco ip helper-address</li>
+      <li>имена есть в DNS, dhcpd привязывает MAC к имени</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>read-only NFS root</h1>
+    <ul>
+      <li>отличная поддержка во FreeBSD</li>
+      <li>баг: грузиться можно только с FreeBSD-серверов :-)</li>
+      <li></li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1></h1>
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1></h1>
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1></h1>
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1></h1>
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1></h1>
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1></h1>
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1></h1>
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+  <div class="slide">
+    <div class="center">
+    <img class="center" src="eurobsdcon.png" alt="EuroBSDCon" /></div>
+  </div>
+  <div class="slide titlepage">
+    <h2><a href="http://wiki.cenkes.org/Cenkes/pNFSv4">wiki.cenkes.org/pNFSv4</a></h2>
+    <h4><a href="http://www.NFSv4.org/">www.NFSv4.org</a></h4>
+    <h4><a href="http://www.pNFS.com/">www.pNFS.com</a></h4>
+    <h4><a href="http://tools.ietf.org/wg/nfsv4/">IETF NFSv4 WG</a></h4>
+  </div>
+</body>
+</html>
