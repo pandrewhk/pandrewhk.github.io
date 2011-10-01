@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- vim:ts=8:sw=2
+    -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang=
+"ru-RU">
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for FreeBSD (vers 7 December 2008), see www.w3.org" />
+  <title>FreeBSD 2009</title>
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+  <meta name="copyright" content=
+  "Copyright © 2009 Андрей Пантюхин" />
+  <link rel="stylesheet" href="slidy.css" type="text/css" media=
+  "screen, projection, print" />
+  <script src="slidy.js" charset="utf-8" type="text/javascript">
+</script>
+</head>
+<body>
+  <div class="slide scr"><img src="blueball-blur-zoom.png" alt="Blueball" /></div></div>
+  <div class="slide cover title titlepage">
+    <h1>FreeBSD 2009</h1>
+    <h2>живее всех живых</h2>
+    <h3>netcraft confirms it</h3>
+  </div>
+  <div class="slide">
+    <h1>Год 2009</h1>
+    <ul>
+      <li>выходит FreeBSD 8.0</li>
+      <li>прошёл очередной Google Summer of Code</li>
+      <li>начинается FreeBSD 9-CURRENT</li>
+      <li>GPLv3 агитирует enterprise за BSD</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Восемь-точка-Ноль</h1>
+    <ul>
+      <li>почти по расписанию</li>
+      <li>революционная эволюция</li>
+      <li>POLA, COMPAT_FREEBSD7, ports/misc/compat7x</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>файловые системы</h1>
+    <ul>
+      <li>production ZFS, версия 13</li>
+      <li>NFS kernel locking</li>
+      <li>новый NFS v3/v4, с базовой поддержкой Kerberos</li>
+      <li>NFS v4 ACLs в 8.1</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>дисковая подсистема</h1>
+    <ul>
+      <li>ATA AHCI — CAM, NCQ</li>
+      <li>bsdlabel расширен до 26 разделов</li>
+      <li>загрузка с ZFS</li>
+      <li>горячее отключение смонтированных флэшек и не только</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>geom</h1>
+    <ul>
+      <li>GEOM_PART по умолчанию</li>
+      <li>переход с fdisk и bsdlabel на gpart</li>
+      <li>загрузка с GPT на обычном BIOS</li>
+      <li>gvinum 2 — наследие GSoC 2007</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>виртуализация</h1>
+    <ul>
+      <li>Xen domU — пока только 32-bit</li>
+      <li>Jails v2</li>
+      <ul>
+	<li>multi-IPv4/v6/no-IP</li>
+	<li>persistent jails</li>
+	<li>иерахические jails</li>
+	<li>привязка к CPU</li>
+	<li>CPU/RAM ограничения - на подходе</li>
+      </ul>
+      <li>Sun VirtualBox в режиме Host</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>подсистема USB</h1>
+    <ul>
+      <li>полностью новый MPSAFE-стэк</li>
+      <li>переписаны почти все драйверы</li>
+      <li>Linux compatibility layer</li>
+      <li>поддержка популярной libusb</li>
+      <li>поддержка новых типов транзакций (HS ISOC, split)</li>
+      <li>device-side режим</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>сеть</h1>
+    <ul>
+      <li>multi-FIB маршрутизация — setfib</li>
+      <li>802.11s mesh, D3.03</li>
+      <li>vimage/virtnet</li>
+      <ul>
+	<li>IMUNES</li>
+      </ul>
+      <li>ECMP — multipath routing, RADIX_MPATH</li>
+      <li>Zero-copy BPF — tcpdump на скорости 10gbps</li>
+      <li>переписан ARP</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>разработка/дебаг</h1>
+    <ul>
+      <li>DTrace</li>
+      <ul>
+	<li>vfs/nfs probes</li>
+      </ul>
+      <li>procstat</li>
+      <li>kernel textdumps</li>
+      <li>ddb scripting</li>
+      <li>обновленные PmcTools</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>ядро</h1>
+    <ul>
+      <li>MPSAFE TTY layer</li>
+      <li>superpages</li>
+      <li>ULE 3.0: поддержка cpusets и фундамент для топологий типа (cc)NUMA</li>
+      <li>kmem_max до 512Gb</li>
+      <li>NGROUPS от 1024 и выше</li>
+      <li>обновленный syscons, UTF-8 в 8.1</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>безопасность</h1>
+    <ul>
+      <li>no zero (NULL) mapping</li>
+      <li>options MAC в GENERIC</li>
+      <li>свежая версия аудит-подсистемы OpenBSM</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>архитектуры</h1>
+    <ul>
+      <li>PowerPC G5, POWER3/4</li>
+      <li>UltraSPARC III/IIIi</li>
+      <ul>
+	<li>поддержка интерфейсов на Sun Fire v440</li>
+      </ul>
+      <li>много новых типов ARM/Xscale</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>порты</h1>
+    <ul>
+      <li>параллельная сборка — пока в пределах одного порта</li>
+      <li>Mark Linimon работает над bug-tracking</li>
+      <li>дополнительный quality assurance</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Summer of Code 2009</h1>
+    <ul>
+      <li>17 успешных проектов из 20 начатых (85%)</li>
+      <li>много студентов из числа committers, ветеранов GSoC</li>
+      <li>как обычно, успешные студенты продолжают работать в проекте</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Проекты GSoC 2009</h1>
+    <ul>
+      <li>инфраструктура лиценизий в портах</li>
+      <li>GPL-free поддержка ext2fs</li>
+      <li>pkg_tools переписаны на libpkg</li>
+      <li>порт puffs из NetBSD</li>
+      <li>фундамент для tickless-ядра</li>
+      <li>аудит отдельных приложений на базе TrustedBSD</li>
+      <li>дисковый планировщик на базе geom</li>
+    </ul>
+  </div>
+  <div class="slide titlepage">
+    <h1>FreeBSD 9.x</h1>
+    <h2>курс на мировое господство</h2>
+  </div>
+  <div class="slide">
+    <h1>9.x: сеть</h1>
+    <ul>
+      <li>inet6-only, inet-less ядро</li>
+      <li>packet batching — группировка пакетов</li>
+      <li>802.11n на полной скорости</li>
+      <li>дальнейшее распараллеливание</li>
+      <li>повышение эффективности процессорного кэша</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>9.x: компилятор</h1>
+    <ul>
+      <li>мы избегаем GPLv3 в базовой системе</li>
+      <li>поэтому GCC давно не обновлялся</li>
+      <li>плавно переходим на LLVM/Clang</li>
+      <ul>
+	<li>ядро i386/amd64 уже работает</li>
+	<li>userland собирается на 99%</li>
+      </ul>
+      <li>Apple резво разрабатывает Clang</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>9.x: виртуализация</h1>
+    <ul>
+      <li>Xen dom0, развитие domU</li>
+      <li>дальнейшая работа над VirtualBox</li>
+      <li>совершенствование jails, vimage/virtnet, multi-FIB</li>
+      <li>иерархические ограничения ресурсов</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>9.x: архитектуры</h1>
+    <ul>
+      <li>avr32, mips64, …</li>
+      <li>форсированное улучшение поддержки arm</li>
+      <li>уверенно занимаем промышленный embedded-рынок</li>
+      <li>уверенно шагаем в пользовательский embedded-рынок</li>
+      <ul>
+	<li>свои люди в тылу врага :-)</li>
+      </ul>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>9.x: userland</h1>
+    <ul>
+      <li>пользовательский DTrace</li>
+      <li>переработка rc.d — параллельный запуск, зависимости в runtime</li>
+      <li>улучшенные cross-compilation и cross-runtime</li>
+      <li>улучшенная поддержка pstack/ltrace/strace</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>9.x: ядро</h1>
+    <ul>
+      <li>глубокая модульность сетевога стэка</li>
+      <li>GENERIC+modules должно хватать всем</li>
+      <ul>
+	<li>binary-only системы, обновления ядра freebsd-update</li>
+      </ul>
+      <li>kexec для горячей перезагрузки ядра</li>
+      <li>развитие RDMA, поддержка InfiniBand</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>9.x: энергетика</h1>
+    <ul>
+      <li>hibernate (suspend-to-disk, S4)</li>
+      <li>выключение опущенных интерфейсов, других PCI-устройств</li>
+      <li>расширение поддержки CPU-states (C1/2/3/4E)</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>сообщество</h1>
+    <ul>
+      <li>BSD-сертификация на конференциях</li>
+      <li>официальные forums.FreeBSD.org</li>
+      <li>346 активных committers (октябрь 2009)</li>
+      <li>присутствие на IT-events по всему миру</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>конференции</h1>
+    <ul>
+      <li>BSDCan — Оттава, Канада, ежегодно в мае</li>
+      <li>EuroBSDCon 2009 — Cambridge, Англия, сентябрь</li>
+      <li>EuroBSDCon 2010 — Карлсруэ, Германия, октябрь</li>
+    </ul>
+    <div class="center">
+    <img class="center" src="eurobsdcon.png" alt="EuroBSDCon" /></div>
+  </div>
+  <div class="slide titlepage">
+    <h2><a href=
+    "http://wiki.cenkes.org/Cenkes/FreeBSD2009">wiki.cenkes.org/FreeBSD2009</a></h2>
+    <h4><a href=
+    "http://ivoras.sharanet.org/freebsd/freebsd9.html">ivoras.sharanet.org/freebsd/freebsd8.html</a></h4>
+    <h4><a href=
+    "http://wiki.freebsd.org/FreeBSD9">wiki.freebsd.org/FreeBSD9</a></h2>
+    <h4><a href=
+    "http://wiki.freebsd.org/SummerOfCode2009Projects">wiki.freebsd.org/SummerOfCode2009Projects</a></h4>
+    <h4>/usr/src/UPDATING</h4>
+  </div>
+</body>
+</html>

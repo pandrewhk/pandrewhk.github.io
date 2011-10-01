@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- vim:ts=8:sw=2
+    -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang=
+"ru-RU">
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for FreeBSD (vers 7 December 2008), see www.w3.org" />
+  <title>rsync-based backup</title>
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+  <meta name="copyright" content=
+  "Copyright © 2009 Андрей Пантюхин" />
+  <link rel="stylesheet" href="slidy.css" type="text/css" media=
+  "screen, projection, print" />
+  <script src="slidy.js" charset="utf-8" type="text/javascript">
+</script>
+</head>
+<body>
+  <div class="slide cover title titlepage">
+    <h1>простой и мощный бэкап на базе rsync</h1>
+  </div>
+  <div class="slide">
+    <h1>способы бэкапа</h1>
+    <ul>
+      <li>do nothing</li>
+      <li>надеяться на лучшее</li>
+      <li>копировать на флэшку</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>почему так плохо</h1>
+    <ul>
+      <li>дорого</li>
+      <li>сложно</li>
+      <li>смерть винчестера - миф!!!11oneone
+        <ul>
+          <li>гарантирует отдел продаж Seagate</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>потеряли данные</h1>
+    <ul>
+      <li>новая работа</li>
+      <li>восстановление данных за $1999.99</li>
+      <li>начинаем копировать</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>как копируем</h1>
+    <ul>
+      <li>drag and drop</li>
+      <li>/bin/cp</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>надоело ждать</h1>
+    <ul>
+      <li>ищем способы синхронизации</li>
+      <li>unison</li>
+      <li>rsync</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>rsync</h1>
+    <ul>
+      <li>быстро сравнивает две директории</li>
+      <li>копирует изменившиеся части изменившихся файлов</li>
+      <li>работает по сети, через ssh или собственный
+      протокол</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>старые версии файлов</h1>
+    <ul>
+      <li>но на моей флэшке только последняя версия!</li>
+      <li>бэкап изменений</li>
+      <li>инкрементальный бэкап</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>duplicity и rdiff-backup</h1>
+    <ul>
+      <li>основаны на rsync</li>
+      <li>работают быстро, эффективно, надёжно</li>
+      <li>сохраняют все изменения</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>duplicity - безопасно</h1>
+    <ul>
+      <li>шифрует все данные GnuPG</li>
+      <li>работает по любому протоколу
+        <ul>
+          <li>ftp, ssh/scp/sftp, rsync, webdav(s), HSi, Amazon
+          S3, imap(s)</li>
+        </ul>
+      </li>
+      <li>может бэкапить на локальный диск/флэшку</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>duplicity - бесплатно</h1>
+    <ul>
+      <li>сотрудников Google просим отвернуться</li>
+      <li>есть gmail? - есть 7Gb места для бесплатного
+      бэкапа!</li>
+      <li>нужно больше? - зарегистрируй ещё 10 аккаунтов!</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>duplicity - дёшево</h1>
+    <ul>
+      <li>надоело нарушать правила?</li>
+      <li>amazon s3 = ¢15 за 1Gb в месяц</li>
+      <li>dreamhost = $120 за 50Gb в год
+        <ul>
+          <li>неограниченный хостинг в подарок</li>
+          <li>не забудьте про меня при регистрации</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>duplicity - легко</h1>
+    <pre>
+export PASSPHRASE="super secret passphrase"
+duplicity full /home \
+  ssh://ballmer:god123@hq.msft.com/backup-dir/
+duplicity incremental /home \
+  ssh://ballmer:god123@hq.msft.com/backup-dir/</pre>
+  </div>
+  <div class="slide">
+    <h1>duplicity - гибко</h1>
+    <pre>
+duplicity incremental \
+  --exclude '/usr/home/sat/Maildir/.spam*' \
+  --exclude '/usr/home/sat/Maildir/**/dovecot*' \
+  --exclude '/usr/home/sat/.mairixdb' \
+  --include '/usr/home/sat' \
+  --include '/root' \
+  --include '/etc' \
+  --include '/usr/local/etc' \
+  --include '/var/db/pkg' \
+  --include '/var/named' \
+  --exclude '**' / ftp://…</pre>
+  </div>
+  <div class="slide">
+    <h1>duplicity - восстановление</h1>
+    <ul>
+      <li>любые файлы и папки</li>
+      <li>на любое время назад</li>
+      <li>предварительный просмотр изменившихся файлов</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>duplicity - надёжно</h1>
+    <ul>
+      <li>дешевизна позволяет легко дублировать бекап</li>
+      <li>подписи gpg предотвратят порчу данных</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>rdiff-backup - декременты</h1>
+    <ul>
+      <li>инкременты назад во времени</li>
+      <li>постоянный полный бекап</li>
+      <li>прямая доступность последней версии</li>
+      <li>уникальная компактность</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>rdiff-backup - мощно</h1>
+    <ul>
+      <li>поддерживает acl, extattr, carbon
+        <ul>
+          <li>в зависимости от ОС</li>
+        </ul>
+      </li>
+      <li>работает локально или через ssh
+        <ul>
+          <li>но сам бекап незашифрован</li>
+        </ul>
+      </li>
+      <li>на удалённом хосте потребуется rdiff-backup</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>rsyncrypto</h1>
+    <ul>
+      <li>шифрует файлы специальным образом</li>
+      <li>подходит для использования вместе с rsync и
+      rdiff-backup</li>
+    </ul>
+  </div>
+  <div class="slide titlepage">
+    <h2><a href=
+    "http://rsync.samba.org/">http://rsync.samba.org/</a></h2>
+    <h2><a href=
+    "http://www.nongnu.org/rdiff-backup/">http://www.nongnu.org/rdiff-backup/</a></h2>
+    <h2><a href=
+    "http://duplicity.nongnu.org/">http://duplicity.nongnu.org/</a></h2>
+    <h2><a href=
+    "http://rsyncrypto.lingnu.com/">http://rsyncrypto.lingnu.com/</a></h2>
+  </div>
+</body>
+</html>

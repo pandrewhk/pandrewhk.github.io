@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- vim:ts=8:sw=2
+    -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang=
+"ru-RU">
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for FreeBSD (vers 7 December 2008), see www.w3.org" />
+  <title>unix workflow</title>
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+  <meta name="copyright" content=
+  "Copyright © 2009 Андрей Пантюхин" />
+  <link rel="stylesheet" href="slidy.css" type="text/css" media=
+  "screen, projection, print" />
+  <script src="slidy.js" charset="utf-8" type="text/javascript">
+</script>
+</head>
+<body>
+  <div class="slide cover titlepage">
+    <h1>Рабочая среда *nix-админа</h1>
+  </div>
+  <div class="slide">
+    <h1>Дисклеймер</h1>
+    <ul>
+      <li>это лишь пример</li>
+      <li>неудачный гибрид микроскопа и молотка</li>
+      <li>неудобный, неуклюжий</li>
+      <li>постоянно меняющийся</li>
+      <li>мощный и практичный для узкого круга людей</li>
+    </ul>
+  </div>
+  <div class="slide titlepage">
+    <h1>немного скриншотов</h1>
+  </div>
+  <div class="slide titlepage">
+    <h1>браузер</h1>
+  </div>
+  <div class="slide scr"><img src="firefox.png" alt=
+  "screenshot" /></div>
+  <div class="slide scr"><img src="firefox-buffers.png" alt=
+  "screenshot" /></div>
+  <div class="slide scr"><img src="firefox-F.png" alt=
+  "screenshot" /></div>
+  <div class="slide titlepage">
+    <h1>консоль</h1>
+  </div>
+  <div class="slide scr"><img src="console.png" alt=
+  "screenshot" /></div>
+  <div class="slide titlepage">
+    <h1>удалённые консоли</h1>
+  </div>
+  <div class="slide scr"><img src="remote1.png" alt=
+  "screenshot" /></div>
+  <div class="slide scr"><img src="remote2.png" alt=
+  "screenshot" /></div>
+  <div class="slide titlepage">
+    <h1>mutt</h1>
+  </div>
+  <div class="slide scr"><img src="mutt.png" alt=
+  "screenshot" /></div>
+  <div class="slide titlepage">
+    <h1>w3m</h1>
+  </div>
+  <div class="slide scr"><img src="w3m.png" alt=
+  "screenshot" /></div>
+  <div class="slide titlepage">
+    <h1>vim</h1>
+  </div>
+  <div class="slide scr"><img src="vim.png" alt=
+  "screenshot" /></div>
+  <div class="slide titlepage">
+    <h1>mplayer</h1>
+  </div>
+  <div class="slide scr"><img src="mplayer.png" alt=
+  "screenshot" /></div>
+  <div class="slide titlepage">
+    <h1>sonata</h1>
+  </div>
+  <div class="slide scr"><img src="sonata.png" alt=
+  "screenshot" /></div>
+  <div class="slide titlepage">
+    <h1>gimp</h1>
+  </div>
+  <div class="slide scr"><img src="gimp.png" alt=
+  "screenshot" /></div>
+  <div class="slide">
+    <h1>Идеология</h1>
+    <ul>
+      <li>KISS - просто и тупо</li>
+      <li>ничего лишнего</li>
+      <li>всё под рукой</li>
+      <li>внимание - золото</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Простота</h1>
+    <ul>
+      <li>одно окно на экране</li>
+      <li>одна задача в окне</li>
+      <li>два глаза на задаче</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Ничего лишнего</h1>
+    <ul>
+      <li>часы</li>
+      <li>тулбары, таскбары</li>
+      <li>погода на 10 дней вперёд</li>
+      <li>показания 57 основных датчиков компьютера</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Атомы внимания</h1>
+    <ul>
+      <li>пиксели экрана</li>
+      <li>многотредовое мышление</li>
+      <li>скорость перевода взгляда</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Глаза</h1>
+    <ul>
+      <li>поле зрения</li>
+      <li>размер шрифта</li>
+      <li>размер терминала</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Мышь</h1>
+    <ul>
+      <li>полезный инструмент
+        <ul>
+          <li>Counter-Strike, WoW, MS Windows</li>
+        </ul>
+      </li>
+      <li>опасный инструмент
+        <ul>
+          <li>отнимает время, связывает руки, снижает iq</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Клавиатура</h1>
+    <ul>
+      <li>~100 клавиш</li>
+      <li>~10000 сочетаний из двух</li>
+      <li>~1000000 сочетаний из трёх</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Ограничения</h1>
+    <ul>
+      <li>в каждом из них есть преимущества</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Попробуйте</h1>
+    <ul>
+      <li>неделю без мышки</li>
+      <li>неделю без автоповтора</li>
+      <li>неделю без графики</li>
+      <li>
+        <del>неделю без компьютера</del>
+      </li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Реализация</h1>
+    <ul>
+      <li>простой оконный менеджер - dwm</li>
+      <li>мультиплексор консоли - screen</li>
+      <li>демаразматор браузера - vimperator</li>
+      <li>лучший шелл в мире - <del>PowerShell</del> zsh
+      </li>
+      <li>больное воображение</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>dwm</h1>
+    <ul>
+      <li>автопривязка окон к виртуальным рабочим столам</li>
+      <li>управление с клавиатуры</li>
+      <li>Caps+1 - консоль</li>
+      <li>Caps+2 - браузер</li>
+      <li>Caps+3 - кино</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>screen</h1>
+    <ul>
+      <li>мобильный компутинг</li>
+      <li>опять размер терминала</li>
+      <li>ssh в новом окне по умолчанию</li>
+      <li>горячие клавиши: больше - лучше</li>
+      <li>Alt+1 - почта</li>
+      <li>Alt+2 - локальный шелл</li>
+      <li>Shift+Alt+9 - шелл на FreeBSD.org</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>screen²</h1>
+    <ul>
+      <li>удалённые мультиплексированные консоли</li>
+      <li>безполезненные дисконнекты</li>
+      <li>Ctrl+R - удалённый эскейпинг</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>x11</h1>
+    <ul>
+      <li>xmodmap - перестановка клавиш</li>
+      <li>xbindkeys - подогрев клавиш</li>
+      <li>xset, xrdb, xte, … - прочие трюки</li>
+      <li>Win+r - русская раскладка</li>
+      <li>Win+e - English</li>
+      <li>Win+j - カタカナ</li>
+      <li>Win+a - العربية</li>
+      <li>Multi_key - композитные знаки - ☭…½㉒¢₇«»</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>mutt</h1>
+    <ul>
+      <li>почта по-человечески</li>
+      <li>но медленный IMAP</li>
+      <li>ещё есть alpine</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>w3m</h1>
+    <ul>
+      <li>отдых глазам</li>
+      <li>легче редактировать</li>
+      <li>Web 1.0 compatible</li>
+      <li>элитно</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>vim</h1>
+    <ul>
+      <li>лучший редактор для тех, кто не знает Lisp</li>
+      <li>и для остальных</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>vimperator</h1>
+    <ul>
+      <li>Firefox: укращение голыми руками</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>zsh</h1>
+    <ul>
+      <li>не пытайтесь выучить man zshall</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>rxvt-unicode</h1>
+    <ul>
+      <li>относится к xterm так же, как zsh к bash</li>
+      <li>
+        <del>так же, как FreeBSD к Linux, vim к emacs, pgsql к
+        mysql</del>
+      </li>
+      <li>то есть просто лутьше</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>x2x</h1>
+    <ul>
+      <li>одна клавиатура</li>
+      <li>одна мышь</li>
+      <li>много компутеров</li>
+      <li>много экранов</li>
+      <li>дзен</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Ссылки</h1>
+    <h2><a href="http://dwm.suckless.org/">dwm</a>, <a href=
+    "http://software.schmorp.de/pkg/rxvt-unicode.html">rxvt-unicode</a>,
+    <a href="http://vimperator.org/">vimperator</a>, <a href=
+    "http://www.gnu.org/software/screen/">screen</a>, <a href=
+    "http://www.mutt.org/">mutt</a>, <a href=
+    "http://w3m.sourceforge.net/">w3m</a>, <a href=
+    "http://x2x.dottedmag.net/">x2x</a>, <a href=
+    "http://www.vim.org/">vim</a>, <a href=
+    "http://zsh.sourceforge.net/">zsh</a>, <a href=
+    "http://hocwp.free.fr/xbindkeys/xbindkeys.html">xbindkeys</a></h2>
+  </div>
+</body>
+</html>

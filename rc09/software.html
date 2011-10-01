@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- vim:ts=8:sw=2
+    -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang=
+"ru-RU">
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for FreeBSD (vers 7 December 2008), see www.w3.org" />
+  <title>Software Management :: RootConf-2009</title>
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+  <meta name="copyright" content=
+  "Copyright © 2009 Андрей Пантюхин" />
+  <link rel="stylesheet" href="slidy.css" type="text/css" media=
+  "screen, projection, print" />
+  <script src="slidy.js" charset="utf-8" type="text/javascript">
+</script>
+</head>
+<body>
+  <div class="slide cover title titlepage">
+    <h1>Эффективное управление ПО под *nix</h1><br />
+    <h2><a href="http://infofarmer.cenkes.org/">Андрей
+    Пантюхин</a> &lt;<a href=
+    "mailto:infofarmer@FreeBSD.org">infofarmer@FreeBSD.org</a>&gt;</h2>
+  </div>
+  <div class="slide titlepage">
+    <h1>Вид сверху</h1>
+  </div>
+  <div class="slide">
+    <h1>Масштаб темы</h1>
+    <h2>Традиционный ответ</h2>
+    <ul>
+      <li>Установка программ</li>
+      <li>Обновление программ</li>
+      <li>Удаление программ</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Масштаб темы</h1>
+    <h2>Новая парадигма</h2>
+    <ul>
+      <li>Идея у разработчика в голове</li>
+      <li><em>Управление ПО</em></li>
+      <li>Готовый результат у пользователя</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Новые задачи</h1>
+    <ul>
+      <li>Управление ресурсами</li>
+      <li>Интеграция в жизненный цикл ПО</li>
+      <li>Межпрограммная интероперабельность</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Ресурсы</h1>
+    <ul>
+      <li>Материальные
+        <ul>
+          <li>Аппаратное обеспечение, …</li>
+        </ul>
+      </li>
+      <li>Абстрактные
+        <ul>
+          <li>Доверие, роли, …</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Ресурсы</h1>
+    <h2>Управление на уровне пакетов ПО</h2>
+    <ul>
+      <li>Текущая практика</li>
+      <li>Оптимизация потребления</li>
+      <li>Оптимизация управления</li>
+      <li>Разгрузка рутины администратора</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Материальные ресурсы</h1>
+    <ul>
+      <li>Процессор, память, диск</li>
+      <li>Пространства имён
+        <ul>
+          <li>Файловая система, учётные записи</li>
+        </ul>
+      </li>
+      <li>Сетевой доступ</li>
+      <li>Доступ к производным ресурсам
+        <ul>
+          <li>База данных, Web API</li>
+        </ul>
+      </li>
+      <li>Средства презентации
+        <ul>
+          <li>Визуализация, аурализация</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Процессор</h1>
+    <ul>
+      <li>Время выполнения</li>
+      <li>Привязка к ядрам</li>
+      <li><em>Контекстные переключения</em></li>
+      <li><em>Оптимальные параметры многопоточности</em></li>
+      <li><em>Использование кэш-памяти разных уровней</em></li>
+      <li><em>Использование функций виртуализации</em></li>
+      <li><em>Собственная сложность планировщика</em></li>
+      <li><em>GPGPU, другие процессоры</em></li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Память</h1>
+    <ul>
+      <li>Занимаемый объём
+        <ul>
+          <li>resident, virtual</li>
+        </ul>
+      </li>
+      <li><em>Полоса доступа, каналы DMA</em></li>
+      <li><em>Фрагментируемость</em></li>
+      <li><em>Эффекты технологий безопасности</em></li>
+      <li><em>Разделяемые данные и код</em></li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Диск</h1>
+    <ul>
+      <li>Место</li>
+      <li>Полоса доступа</li>
+      <li>Количество мета-информации</li>
+      <li><em>Износ</em></li>
+      <li><em>Разделяемые данные</em></li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Сеть</h1>
+    <ul>
+      <li>Полоса доступа</li>
+      <li>Приоритет, QoS</li>
+      <li><em>Зарезервированные порты, протоколы</em></li>
+      <li>
+        <em>Правила политик безопасности</em>
+        <ul>
+          <li>firewall, NAT, tcp wrappers, fixup, inspect</li>
+        </ul>
+      </li>
+      <li><em>Ресурсы мониторинга и сбора статистики</em></li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Идентификаторы</h1>
+    <ul>
+      <li>Файловая система</li>
+      <li>Учётные записи
+        <ul>
+          <li>пользователи, группы, роли</li>
+        </ul>
+      </li>
+      <li>Многоверсионные инсталляции</li>
+      <li>Многоинстационные инсталляции</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Производные</h1>
+    <ul>
+      <li>База данных</li>
+      <li>Антивирус</li>
+      <li>Web API</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Визуализация</h1>
+    <ul>
+      <li>Экранное пространство
+        <ul>
+          <li>в привязке ко времени и режимам</li>
+        </ul>
+      </li>
+      <li>Полупрозрачные, уменьшенные представления</li>
+      <li>Тайлинг, виртуальные десктопы</li>
+      <li>Системная индикация</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Аурализация</h1>
+    <ul>
+      <li>Частоты</li>
+      <li>Громкость</li>
+      <li>Шаблоны</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Абстрактные ресурсы</h1>
+    <ul>
+      <li>Внимание пользователя</li>
+      <li>Доступ</li>
+      <li>Доверие</li>
+      <li>Домены безопасности</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Внимание пользователя</h1>
+    <ul>
+      <li>Штатные визуализация и аурализация
+        <ul>
+          <li>Монотонность мониторинга</li>
+          <li>Загрязнение журналов</li>
+          <li>Индикация в дата-центрах</li>
+        </ul>
+      </li>
+      <li>Совокупные тревоги
+        <ul>
+          <li>Экран, сигнализация, пейджер</li>
+        </ul>
+      </li>
+      <li>Дизайн интерфейсов
+        <ul>
+          <li>Windows UAC, AJAX login</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Доверие</h1>
+    <h2>Центральный вендор</h2>
+    <ul>
+      <li>Цифровые подписи по лицензионным договорам</li>
+      <li>Цифровые подписи собственого ПО вендора</li>
+      <li>WHQL, Apple, Symbian, игровые приставки, Tivo</li>
+      <li>Cisco California, сервера общего назначения</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Паутина доверия</h1>
+    <ul>
+      <li>PGP - p2p-цепочки</li>
+      <li>SSL - централизованные системы (CACert, Thawte)</li>
+      <li>Бинарные пакеты (deb, rpm)</li>
+      <li>Архивы исходного кода</li>
+      <li>Изменения в репозитарии версий</li>
+      <li>Любые другие данные</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Доступ</h1>
+    <ul>
+      <li>Традиционные механизмы Unix
+        <ul>
+          <li>Разрешения файловой системы</li>
+          <li>Доступ к сетевым портам с низкими номерами</li>
+          <li>Ограничения chroot и jail</li>
+        </ul>
+      </li>
+      <li>Методы управления доступом для повышенной безопасности
+        <ul>
+          <li>Мандатный (MAC), избирательный (DAC), ролевой
+          (RBAC), списочный (RSBAC)</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Эволюция</h1>
+    <ul>
+      <li>Возможности (Capabilities)</li>
+      <li>Роли</li>
+      <li>Точечные привилегии</li>
+      <li>SELinux, AppArmor, TrustedBSD, Systrace, Symbian</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Домены безопасности</h1>
+    <ul>
+      <li>Коммуникационные - на уровне предприятия</li>
+      <li>Технологические
+        <ul>
+          <li>Непотопляемость</li>
+          <li>Бастионы</li>
+          <li>Локальные уязвимости</li>
+          <li>Timing-атаки</li>
+          <li>Атаки на энтропию RNG</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Виртуализация</h1>
+    <ul>
+      <li>Обход проблем совместимости и разграничения</li>
+      <li>На уровне ОС</li>
+      <li>Полная</li>
+      <li>Тонкая</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>На уровне ОС</h1>
+    <ul>
+      <li>FreeBSD Jails, Linux VServer, Solaris Zones</li>
+      <li>Несущественный overhead</li>
+      <li>Неполное разграничение</li>
+      <li>Поддерживается штатными системами управления ПО
+        <ul>
+          <li>FreeBSD Ports DESTDIR</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Полная</h1>
+    <ul>
+      <li>VMWare, Xen, Linux KVM, Qemu</li>
+      <li>Заметный overhead</li>
+      <li>Более жёсткое разграничение</li>
+      <li>Отсутствует проблема совместимости</li>
+      <li>Программные устройства
+        <ul>
+          <li>appliances, rPath Conary</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Тонкая</h1>
+    <ul>
+      <li>ThinApp, App-V, XenApp, klik, Zero Install, PBI</li>
+      <li>Смешанное решение</li>
+      <li>Жёстко централизованные и SaaS-среды</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Жизненный цикл ПО</h1>
+    <ul>
+      <li>Разработка</li>
+      <li>Дистрибуция и установка</li>
+      <li>Эксплуатация</li>
+      <li>Сбор и обработка отзывов</li>
+      <li>Патчи и обновления</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Особенности открытой модели</h1>
+    <ul>
+      <li>Итеративная разработка</li>
+      <li>Постоянный доступ сообщества</li>
+      <li>Доступ к любым изменениям</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Разработка</h1>
+    <ul>
+      <li>Использование стороннего ПО</li>
+      <li>Интеграция с другим ПО</li>
+      <li>Поддержка разных ОС и сред</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Дистрибуция</h1>
+    <ul>
+      <li>Проприетарный путь
+        <ul>
+          <li>бинарные пакеты на сайте вендора</li>
+        </ul>
+      </li>
+      <li>Открытый путь
+        <ul>
+          <li>исходники на сайте вендора</li>
+          <li>бинарники и метаданные в репозитариях ОС</li>
+        </ul>
+      </li>
+      <li>Смешанный путь
+        <ul>
+          <li>исходники на сайте вендора</li>
+          <li>бинарники и метаданные в репозитариях вендора</li>
+        </ul>
+      </li>
+      <li>p2p - DebTorrent, apt-p2p</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Установка</h1>
+    <ul>
+      <li>Привилегированная</li>
+      <li>Пользовательская</li>
+      <li>Кластер</li>
+      <li>Предприятие</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Эксплуатация</h1>
+    <ul>
+      <li>Управление конфигурацией</li>
+      <li>Динамическое управление ресурсами</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Фидбэк</h1>
+    <ul>
+      <li>Статистика использования</li>
+      <li>Отчёты об ошибках</li>
+      <li>Поддержка</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Патчи и обновления</h1>
+    <ul>
+      <li>Пользовательский cherry-picking</li>
+      <li>Локальные изменения</li>
+      <li>Апгрейд конфигураций</li>
+      <li>Постоянное тестирование</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Интероперабельность</h1>
+    <ul>
+      <li>Интеграция ПО в рабочую среду
+        <ul>
+          <li>Freedesktop</li>
+        </ul>
+      </li>
+      <li>Заменимые провайдеры функциональности
+        <ul>
+          <li>MTA, браузер, видеоплеер</li>
+        </ul>
+      </li>
+      <li>Провайдеры системных служб
+        <ul>
+          <li>mdns, ssl</li>
+        </ul>
+      </li>
+      <li>Обмен данными
+        <ul>
+          <li>Локально, по сети</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Итого</h1>
+    <ul>
+      <li>Управление ПО - медленно меняющаяся парадигма</li>
+      <li>Рост требований толкает интенсивное развитие</li>
+      <li>Текущее состояние - ряд полумер и обходных путей</li>
+      <li>Их конвергенция в комплексные решения - за
+      будущим</li>
+    </ul>
+  </div>
+  <div class="slide titlepage">
+    <h1>Вид изнутри</h1>
+  </div>
+  <div class="slide">
+    <h1>Обновления</h1>
+    <ul>
+      <li>Сбор информации</li>
+      <li>Бекап</li>
+      <li>Тестирование</li>
+      <li>Установка</li>
+      <li>Откат</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Сбор информации</h1>
+    <ul>
+      <li>Списки рассылки и форумы вендора</li>
+      <li>Списки рассылки и форумы ОС</li>
+      <li>Изменения
+        <ul>
+          <li>ChangeLog</li>
+          <li>Bug-Tracking System</li>
+          <li>Version Control System</li>
+          <li>Полный diff исходников</li>
+          <li>ports/Tools/scripts/ardiff</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Бекап и откат</h1>
+    <ul>
+      <li>Бинарные пакеты про запас</li>
+      <li>База данных установленного ПО</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Бекап и откат</h1>
+    <pre>
+portupgrade -b
+portmaster -b
+pkg_create -b
+cp /var/db/pkg /backup
+pkg_delete &amp;&amp; pkg_add
+</pre>
+  </div>
+  <div class="slide">
+    <h1>Откат версий</h1>
+    <ul>
+      <li>из бекапа</li>
+      <li>csup date</li>
+      <li>portdowngrade</li>
+      <li>ftp.*.FreeBSD.org</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Проверка состояния</h1>
+    <ul>
+      <li>pkg_create -b</li>
+      <li>pkg_delete <em>-n</em></li>
+      <li>ports/Tools/scripts/consistency-check</li>
+      <li>tripwire и другие IDS</li>
+      <li>логи инкрементальных бекапов</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Ошибки</h1>
+    <ul>
+      <li>в портах</li>
+      <li>portupgrade</li>
+      <li>/var/db/pkg</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Инфраструктура</h1>
+    <ul>
+      <li>Метаданные</li>
+      <li>Дистрибутивы и пакеты</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Зеркало</h1>
+    <ul>
+      <li>Локальный cvsup</li>
+      <li>NFS</li>
+      <li>Дерево портов - только чтение</li>
+      <li>Дистрибутивы - доступ на запись или автозагрузка</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Ссылки</h1>
+    <ul>
+      <li><a href=
+      "http://people.freebsd.org/~sat/pmp/">Third-party software
+      management under BSD, EuroBSDCon 2006</a></li>
+      <li><a href="http://wiki.freebsd.org/Upak">Codename
+      Upak</a></li>
+    </ul>
+  </div>
+  <div class="slide titlepage">
+    <h1>有り難う!</h1>
+    <h1>Спасибо!</h1>
+  </div>
+  <div class="slide titlepage">
+    <h1>¿Вопросы?</h1>
+  </div>
+</body>
+</html>

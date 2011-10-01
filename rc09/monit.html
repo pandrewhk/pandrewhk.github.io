@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- vim:ts=8:sw=2
+    -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang=
+"ru-RU">
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for FreeBSD (vers 7 December 2008), see www.w3.org" />
+  <title>monit</title>
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+  <meta name="copyright" content=
+  "Copyright © 2009 Андрей Пантюхин" />
+  <link rel="stylesheet" href="slidy.css" type="text/css" media=
+  "screen, projection, print" />
+  <script src="slidy.js" charset="utf-8" type="text/javascript">
+</script>
+</head>
+<body>
+  <div class="slide cover title titlepage">
+    <h1>monit</h1>
+    <h2>простой мониторинг</h2>
+  </div>
+  <div class="slide">
+    <h1>Задача</h1>
+    <ul>
+      <li>Следить за состоянием процессов</li>
+      <li>Поднимать упавшие</li>
+      <li>Опускать сбоящие</li>
+      <li>Перезапускать зависшие</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Задача</h1>
+    <ul>
+      <li>Предпринимать любые действия по гибко заданным
+      событиям</li>
+      <li>Уведомлять администраторов и вести журналы</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Решение</h1>
+    <ul>
+      <li>Nagios?</li>
+      <li>Zabbix?</li>
+      <li>OpenView?</li>
+      <li>Дорого и сложно</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Решение</h1>
+    <ul>
+      <li>djb daemontools?</li>
+      <li>Apple launchd?</li>
+      <li>Sun SMF?</li>
+      <li>Ubuntu Upstart?</li>
+      <li>Непортируемо и напутано</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>monit</h1>
+    <ul>
+      <li>Это один (1) небольшой процесс</li>
+      <li>Это один (1) конфиг-файл</li>
+      <li>Полноценный мониторинг</li>
+      <li>Настраиваемые уведомления по SMTP</li>
+      <li>Автоматическое восстановление сервисов</li>
+      <li>Удобный доступ из консоли</li>
+      <li>Встроенный веб-интерфейс</li>
+      <li>Журналирование в syslog или отдельный log-файл</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Мониторинг</h1>
+    <ul>
+      <li>процессы и сервисы</li>
+      <li>файлы</li>
+      <li>папки</li>
+      <li>устройства</li>
+      <li>удалённые сервисы</li>
+      <li>состояние системы</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Процессы</h1>
+    <ul>
+      <li>Существование, по pid-файлу</li>
+      <li>Изменения PID</li>
+      <li>Изменения PPID</li>
+      <li>Количество потомков</li>
+      <li>Загрузка процессора (с потомками)</li>
+      <li>Загрузка памяти (с потомками и без)</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Процессы</h1>
+    <pre>
+if 2 restarts within 3 cycles then timeout
+if totalmem &gt; 100 Mb then alert
+if children &gt; 255 for 5 cycles then stop
+if cpu usage &gt; 95% for 3 cycles then restart</pre>
+  </div>
+  <div class="slide">
+    <h1>Сервисы</h1>
+    <ul>
+      <li>Удалённые и локальные</li>
+      <li>Проверка по протоколам
+        <ul>
+          <li>http, ftp, imap, mysql, pgsql, smtp, ntp, pop,
+          dns, ssh, …</li>
+        </ul>
+      </li>
+      <li>Поддержка SSL/TLS с проверкой подписи
+        <ul>
+          <li>https, ftps, imaps, pops, …</li>
+        </ul>
+      </li>
+      <li>UDP, TCP, ICMP, Unix domain sockets</li>
+      <li>Произвольно заданный текстовый протокол</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Сервисы</h1>
+    <pre>
+if failed url
+  http://bill:1337@msft.com:81/?query
+  and content == 'my.*regex' then alert
+if failed icmp type echo count 5
+  with timeout 15 seconds
+  then alert
+if failed port 80 proto http then alert
+if failed port 443 type TCPSSL proto http
+  then alert
+if failed host cave.persia.ir port 4040
+  send "Open, Sesame!\r\n"
+  expect "Please enter the cave\r\n"
+then restart</pre>
+  </div>
+  <div class="slide">
+    <h1>Файлы и папки</h1>
+    <ul>
+      <li>Контрольная сумма md5 или sha1</li>
+      <li>Время изменения (mtime)</li>
+      <li>Размер</li>
+      <li>Содержимое (regex)</li>
+      <li>Флаги</li>
+      <li>Разрешения</li>
+      <li>Пользователь, группа</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Файлы и папки</h1>
+    <pre>
+if changed checksum then exec "echo 123"
+if failed checksum and 
+ expect the sum 8f7f419955cefa0b33a2ba316cba3659
+ then alert
+if changed timestamp then exec 'apache.sh restart'
+if size &gt; 50 MB then exec 'logrotate'
+if match 'Houston, we have a problem' then alert
+check file su with path /bin/su
+  if changed size then exec "ifconfig fxp0 down"</pre>
+  </div>
+  <div class="slide">
+    <h1>Файловые системы</h1>
+    <ul>
+      <li>Свободное место</li>
+      <li>Использование inode-ов</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Файловые системы</h1>
+    <pre>
+ check device rootfs with path /dev/hda1
+  if space usage &gt; 80% 5 times within 15 cycles 
+     then alert 
+     else if passed for 10 cycles then alert
+  if space usage &gt; 90% for 5 cycles then 
+     exec '/try/to/free/the/space'
+  if space usage &gt; 99% then exec 'kill -9 1'</pre>
+  </div>
+  <div class="slide">
+    <h1>Удалённые файлы</h1>
+    <ul>
+      <li>Доступ по HTTP</li>
+      <li>Проверка контрольной суммы md5 или sha1</li>
+    </ul>
+    <pre>
+if failed port 80 protocol http
+  and request "/page.html"
+  with checksum 350d6c0157a04c84012475bd87609db4
+  then alert</pre>
+  </div>
+  <div class="slide">
+    <h1>Система</h1>
+    <ul>
+      <li>Средняя загрузка за 1, 5, 15 минут</li>
+      <li>Загрузка процессора
+        <ul>
+          <li>user, system</li>
+        </ul>
+      </li>
+      <li>Загрузка памяти</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Система</h1>
+    <pre>
+if loadavg (1min) &gt; 4 then alert
+if loadavg (5min) &gt; 2 then alert
+if memory usage &gt; 75% then alert
+if cpu usage (user) &gt; 70% then alert
+if cpu usage (system) &gt; 30% then alert
+if cpu usage (wait) &gt; 20% then alert</pre>
+  </div>
+  <div class="slide">
+    <h1>Действия</h1>
+    <ul>
+      <li>уведомление</li>
+      <li>запуск, остановка, перезапуск</li>
+      <li>исполнение любого скрипта или программы
+        <ul>
+          <li>под любыми пользователем и группой</li>
+        </ul>
+      </li>
+      <li>включение, выключение мониторинга</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Действия</h1>
+    <pre>
+then alert
+then stop
+then restart
+then exec 'true' as uid 1 gid 1
+then unmonitor</pre>
+  </div>
+  <div class="slide">
+    <h1>Уведомления</h1>
+    <ul>
+      <li>полностью настраиваемый формат</li>
+      <li>легко автоматически обрабатывать</li>
+      <li>буфер любого размера на случай временного отказа
+      почты</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>CLI-интерфейс</h1>
+    <pre>
+monit summary
+  The monit daemon 4.10.1 uptime: 10h 53m
+  Process 'vpnc'                      running
+  System 'pollux.cenkes.org'          running
+monit status
+monit reload
+monit validate
+monit restart apache
+monit restart all</pre>
+  </div>
+  <div class="slide">
+    <h1>Веб-интерфейс</h1>
+    <ul>
+      <li>Полный аналог текстового</li>
+      <li>Совместим с текстовыми браузерами</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Недостатки</h1>
+    <ul>
+      <li>Однотредовый, синхронный</li>
+      <li>Нет произвольных проверок (скриптами)</li>
+      <li>Плохо расширяем
+        <ul>
+          <li>Кто портирует на Perl?</li>
+        </ul>
+      </li>
+      <li>Не рассчитан near-realtime проверки</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Преимущества</h1>
+    <ul>
+      <li>Предельная простота</li>
+      <li>Быстрый и маленький процесс</li>
+      <li>Чаще удобней запустить monit, чем написать
+      костыль</li>
+    </ul>
+  </div>
+  <div class="slide titlepage">
+    <h1><a href=
+    "http://mmonit.com/monit/">mmonit.com/monit/</a></h1>
+  </div>
+</body>
+</html>

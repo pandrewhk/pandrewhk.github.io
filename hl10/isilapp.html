@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- vim:ts=8:sw=2
+    -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang=
+"ru-RU">
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for FreeBSD (vers 7 December 2008), see www.w3.org" />
+  <title>Isilapp</title>
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+  <meta name="copyright" content=
+  "Copyright © 2010 Андрей Пантюхин" />
+  <link rel="stylesheet" href="slidy.css" type="text/css" media=
+  "screen, projection, print" />
+  <script src="slidy.js" charset="utf-8" type="text/javascript">
+</script>
+</head>
+<body>
+  <div class="slide scr"><img src="isilapp.png" alt="Isilapp" /></div></div>
+  <div class="slide cover title titlepage">
+    <h1>Isilapp</h1>
+    <h2>Extreme Cloud Storage on FreeBSD</h2>
+    <h4>(пара скриптов на shell и SQL)</h4>
+  </div>
+  <div class="slide">
+    <h1>исход</h1>
+    <ul>
+      <li>медиа-сервис с типичным размером файла от 1 до 50 MB</li>
+      <li>мастер данные от 100 TB до 1 PB</li>
+      <li>стриминг данные от 50 до 200 TB</li>
+      <li>стриминг полоса от 10 Gbit/s до 1 Tbit/s</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>надежды</h1>
+    <ul>
+      <li>сохранность мастер данных</li>
+      <li>безотказность и качество стриминга</li>
+      <li>разумная TCO</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>логика капиталиста</h1>
+    <ul>
+      <li>много дисковых полок</li>
+      <li>эффективное кластерное хранилище</li>
+      <li>CDN от вендора</li>
+      <li>серверы доступа — отдельно</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>cluster storage solutions</h1>
+    <ul>
+      <li>Isilon, NetApp, Panasas</li>
+      <li>Exadata, EMC, HDS</li>
+      <li>GPFS, PolyServe</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>тупичок вендора</h1>
+    <ul>
+      <li>инфраструктура требует 3–4 решения</li>
+      <li>негарантируемая скорость при экстремальных нагрузках</li>
+      <li>крайняя сложность дебага и тюнинга</li>
+      <li>стоимость raw TB в 10–30 раза выше consumer storage</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>pioneering</h1>
+    <ul>
+      <li>server-integrated storage!</li>
+      <li>(cloud storage)</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>cloud storage</h1>
+    <ul>
+      <li>Google, Yandex, и почти все крупные интернет-компании</li>
+      <li>гибкость, доступность дебага и тюнинга</li>
+      <li>consumer hardware, стоимость raw TB в 1,5–3 раза выше consumer storage</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>cloud storage solutions</h1>
+    <ul>
+      <li>HDFS, GFS, S3, (Lustre, …)</li>
+      <li>сложности с большими расстояниями</li>
+      <li>медленный стриминг, сложность кэширования</li>
+      <li>сложность эксплуатации</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>codename isilapp</h1>
+    <ul>
+      <li>FreeBSD</li>
+      <li>UFS2</li>
+      <li>HTTP</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>почему FreeBSD?</h1>
+    <div class="center">
+    <img class="center" src="lolwut.jpg" alt="LOL WUT" /></div>
+  </div>
+  <div class="slide">
+    <h1>почему FreeBSD?</h1>
+    <ul>
+      <li>продвинутый, надежный storage: geom, UFS2, ZFS</li>
+      <li>проверенный extreme streaming на nginx</li>
+      <li>доступная коммерческая поддержка на уровне ядра</li>
+      <li>промышленный опыт NetApp, Isilon, Panasas</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>почему UFS2?</h1>
+    <ul>
+      <li>самая быстрая FS в мире</li>
+      <li>7 лет успешной эксплуатации</li>
+      <li>ZFS сложна и пока медленна</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>почему HTTP?</h1>
+    <ul>
+      <li>основной протокол внешнего доступа</li>
+      <li>достаточно быстрый и простой для внутреннего обмена</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>унификация</h1>
+    <ul>
+      <li>серверы и хранилище</li>
+      <li>мастер и стриминг данные</li>
+      <li>внешний и внутренний доступ</li>
+      <li>кластерный и облачный (CDN) обмен</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>implementation decisions</h1>
+    <ul>
+      <li>одна файловая система на диск</li>
+      <li>никаких RAID, только JBOD</li>
+      <li>распределённость на базе случайных чисел</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>слово о hardware</h1>
+    <ul>
+      <li>шасси SuperMicro 4U 24 x 3.5"</li>
+      <li>2–6 x Intel Gigabit</li>
+      <li>24 x 2TB потребительские диски</li>
+      <li>контроллеры LSI 1068 в режиме JBOD</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>данные</h1>
+    <ul>
+      <li>имя файла — sha256 от его содержимого</li>
+      <li>равномерно разнесены по 4096 (16^x) папкам</li>
+      <li>диспетчер данных</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>мастер данные</h1>
+    <ul>
+      <li>минимум на трёх шасси</li>
+      <li>чуть позже — минимум в трёх ДЦ</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>стриминг данные</h1>
+    <ul>
+      <li>минимум на трёх шасси</li>
+      <li>во всех точках CDN</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>диспетчер данных</h1>
+    <ul>
+      <li>PostgreSQL, sh, Python</li>
+      <li>sha, hdd, chassis, rack, dc</li>
+      <li>вид <code>sha—http://chassis/hdd/</code> доступен приложению</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>диспетчер данных²</h1>
+    <ul>
+      <li>знает текущий статус всех объектов</li>
+      <li>формирует из ручных и автоматических задач сценарии и запускает их</li>
+      <li>единая точка автоматизации</li>
+      <li>частичная multi-master архитектура</li>
+      <li>self-healing</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>внутренний обмен</h1>
+    <ul>
+      <li>nginx + fetch/wget/curl</li>
+      <li>гибкая аутентификация</li>
+      <li>быстрый fetcher в разработке</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>внутренний обмен²</h1>
+    <ul>
+      <li>унифицирован между локальным и распределённым уровнями</li>
+      <li>подстраивается под ширину каналов</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>внешний доступ</h1>
+    <ul>
+      <li>nginx, secure link</li>
+      <li>100k+ потоков на шасси</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Phoronix benchmarks</h1>
+    <ul>
+      <li>linear local read/write: 100MB/s на диск, 2.4GB/s на шасси</li>
+      <li>random local read: 20–40MB/s на диск, 480–960MB/s на шасси</li>
+      <li>random HTTP get: 4–5Gbit/s на шасси без оптимизаций</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>high availability</h1>
+    <ul>
+      <li>app-level next path retry</li>
+      <li>актуальная информация о доступности в приложении</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>high availability²</h1>
+    <ul>
+      <li>carp в пределах dc</li>
+      <li>proxy store при выходе диска из строя</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>load balancing</h1>
+    <ul>
+      <li>hardware balancers плохо подходят для тяжёлых данных</li>
+      <li>app-level, geo-aware, status-aware balancing</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>масштабирование</h1>
+    <ul>
+      <li>на новое шасси уходит несколько минут</li>
+      <li>это можно автоматизировать</li>
+      <li>plug-and-pray</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>стоимость</h1>
+    <ul>
+      <li>примерно в 2,5 раза дороже жёсткого диска</li>
+      <li>можно оптимизировать: пример backblaze</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>разработка</h1>
+    <ul>
+      <li>рабочий прототип примерно за неделю</li>
+      <li>совершенствование в режиме production благодаря high availability</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>надёжность</h1>
+    <ul>
+      <li>случайная распределённость — равномерно распределённое восстановление избытычности</li>
+      <li>жёсткий диск 2TB: <del>6 часов</del> 4 минуты</li>
+      <li>шасси 48TB: <del>55 часов</del> 6 часов</li>
+      <li>ЦОД 1PB: <del>10 дней</del> 5 дней :'-(</li>
+      <li>Земля 10PB: <del>3 месяца</del> CLASSIFIED секунд</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>бесперебойность</h1>
+    <ul>
+      <li>секунды при потере диска</li>
+      <li>миллисекунды при потере шасси (carp)</li>
+      <li>секунды при потере dc (app-level next-path)</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>итого</h1>
+    <ul>
+      <li>недостатки</li>
+      <li>преимущества</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>недостатки¹</h1>
+    <ul>
+      <li>кастомность</li>
+      <li>велосипедность</li>
+      <li>маленький bus factor</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>недостатки²</h1>
+    <ul>
+      <li>сырость</li>
+      <li>отсутствие сертификаций</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>преимущества¹</h1>
+    <ul>
+      <li>гибкость</li>
+      <li>производительность</li>
+      <li>job security</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>преимущества²</h1>
+    <ul>
+      <li>единственное унифицированное решение под задачи</li>
+    </ul>
+  </div>
+  <div class="slide titlepage">
+    <h2>облачные вопросы?</h2>
+    <br/>
+    <h3>интересно? заходите к нам в гости знакомиться и оставайтесь делать будущее!</h3>
+    <br/>
+    <h3>andrew@dreamindustries.ru</h3>
+  </div>
+</body>
+</html>

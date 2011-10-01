@@ -1,0 +1,113 @@
+Управление сторонним ПО под *nix: история и будущее
+----
+Аудитория: любознательные люди с любым бэкграундом в ИТ
+
+Ни одна современная система не обходится без сторонних приложений. От спутников и марсоходов, видеокамер и mp3-плееров, до маршрутизаторов, серверов, ИБП и файловых массивов, - любое устройство несёт на борту тесно интегрированный набор программ от разных разработчиков. Алгоритмическая сложность повседневных вычислительных задач давно превысила потенциал отдельно взятого поставщика ПО, даже если это огромная корпорация. И пока эта сложность будет расти, вместе с ней будет увеличиваться количество установленных программ, вызываемых библиотек и запущенных процессов на компьютере.
+
+Управление и взаимодействие со сторонним ПО - основополагающая функция современной ОС. Для пользователей это запуск и работа с приложениями, обмен данными между ними, для администраторов - сборка и установка пакетов, их обновление и настройка, для производителей ОС и аппаратных решений - интеграция сторонних библиотек и утилит в среду разработки и саму систему, их документация и поддержка на одном уровне с остальными компонентами.
+
+В докладе рассмотрен обширный круг проблем, с которыми сталкиваются администраторы при управлении приложениями. Представлены решения этих задач в разных ОС в исторической и текущей перспективах. Изучены возможные пути эволюции на фоне развития базовых компонентов *nix-систем. Показано значение тонкой виртуализации, разграничения ресурсов и ролевого доступа для компартментализации ПО. Описаны интересные экспериментальные проекты, планы разработчиков популярных ОС.
+
+При минимуме сиюминутно применимой практической информации, задача доклада - дать цельную картину темы, заинтересовать неординарными решениями, обратить внимание на долгосрочные тенденции и возможные стратегии, помочь переосмыслить общий подход к управлению сторонним ПО и в какой-то мере просто заглянуть в будущее и помечтать.
+
+----
+
+Skeleton
+
+Sharing and interfacing
+
+Types of resources
+ per-package sharing rationale
+
+CPU
+ CPU time
+ the price of context-switching
+  threading vs cores
+  scheduler complexity
+
+RAM
+ time
+ throughput
+  overshadowed by CPU time?
+
+HDD
+ space
+  qoutas
+  user data
+  cross-app data
+ throughput
+  geom
+
+Namespaces
+ File System
+  multi-versioning
+   per-user
+   block-based
+ User names
+ Group names
+
+Networking
+ protocols
+ ports
+ throughput
+ runtime, firewall
+
+Generalized Access Control
+ DAC, MAC, RSBAC
+ SELinux, AppArmor, TrustedBSD, Systrace, Symbian
+
+Trust
+ Digital Signatures
+  WHQL, Apple, Symbian, Gaming Consoles, Tivoization
+
+Virtualization
+ heavy context-switching
+  mitigated somewhat by new CPU functions
+ vs multi-core
+ mainframe approach
+  dedicated channels
+
+Security Domains
+ local timing attacks
+ attacks on randomness
+
+GUI
+ X11 tiling
+ priority
+
+User Attention
+ real world alert practices
+  5 sense, two usable
+ text interfaces, text output
+  standing out, collapsing
+
+Types of interfacing
+ API
+ ABI
+ higher abstractions
+ protocols
+ serialisation
+ IPC
+  shared memory, etc
+
+Shared libs
+ Binary
+ Scripted
+ Cache-compiled
+ Symbol versioning
+
+Shared data
+ concurrency
+ real-time collaboration
+
+Quality Assurance
+
+Feedback collection
+ backtraces
+
+Tracking Upstream
+ necessity of open/shared source
+ local VCS
+ regression testing infrastructure
+ ubiquitous automation
+ versiontracker for windows

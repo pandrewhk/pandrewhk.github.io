@@ -1,0 +1,757 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- vim:ts=8:sw=2
+    -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang=
+"ru-RU">
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for FreeBSD (vers 7 December 2008), see www.w3.org" />
+  <title>all blitzes</title>
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+  <meta name="copyright" content=
+  "Copyright © 2009 Андрей Пантюхин" />
+  <link rel="stylesheet" href="slidy.css" type="text/css" media=
+  "screen, projection, print" />
+  <script src="slidy.js" charset="utf-8" type="text/javascript">
+</script>
+</head>
+<body>
+  <div class="slide cover title titlepage">
+    <h1>простой и мощный бэкап на базе rsync</h1>
+  </div>
+  <div class="slide">
+    <h1>способы бэкапа</h1>
+    <ul>
+      <li>do nothing</li>
+      <li>надеяться на лучшее</li>
+      <li>копировать на флэшку</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>почему так плохо</h1>
+    <ul>
+      <li>дорого</li>
+      <li>сложно</li>
+      <li>смерть винчестера - миф!!!11oneone
+        <ul>
+          <li>гарантирует отдел продаж Seagate</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>потеряли данные</h1>
+    <ul>
+      <li>новая работа</li>
+      <li>восстановление данных за $1999.99</li>
+      <li>начинаем копировать</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>как копируем</h1>
+    <ul>
+      <li>drag and drop</li>
+      <li>/bin/cp</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>надоело ждать</h1>
+    <ul>
+      <li>ищем способы синхронизации</li>
+      <li>unison</li>
+      <li>rsync</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>rsync</h1>
+    <ul>
+      <li>быстро сравнивает две директории</li>
+      <li>копирует изменившиеся части изменившихся файлов</li>
+      <li>работает по сети, через ssh или собственный
+      протокол</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>старые версии файлов</h1>
+    <ul>
+      <li>но на моей флэшке только последняя версия!</li>
+      <li>бэкап изменений</li>
+      <li>инкрементальный бэкап</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>duplicity и rdiff-backup</h1>
+    <ul>
+      <li>основаны на rsync</li>
+      <li>работают быстро, эффективно, надёжно</li>
+      <li>сохраняют все изменения</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>duplicity - безопасно</h1>
+    <ul>
+      <li>шифрует все данные GnuPG</li>
+      <li>работает по любому протоколу
+        <ul>
+          <li>ftp, ssh/scp/sftp, rsync, webdav(s), HSi, Amazon
+          S3, imap(s)</li>
+        </ul>
+      </li>
+      <li>может бэкапить на локальный диск/флэшку</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>duplicity - бесплатно</h1>
+    <ul>
+      <li>сотрудников Google просим отвернуться</li>
+      <li>есть gmail? - есть 7Gb места для бесплатного
+      бэкапа!</li>
+      <li>нужно больше? - зарегистрируй ещё 10 аккаунтов!</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>duplicity - дёшево</h1>
+    <ul>
+      <li>надоело нарушать правила?</li>
+      <li>amazon s3 = ¢15 за 1Gb в месяц</li>
+      <li>dreamhost = $120 за 50Gb в год
+        <ul>
+          <li>неограниченный хостинг в подарок</li>
+          <li>не забудьте про меня при регистрации</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>duplicity - легко</h1>
+    <pre>
+export PASSPHRASE="super secret passphrase"
+duplicity full /home \
+  ssh://ballmer:god123@hq.msft.com/backup-dir/
+duplicity incremental /home \
+  ssh://ballmer:god123@hq.msft.com/backup-dir/</pre>
+  </div>
+  <div class="slide">
+    <h1>duplicity - гибко</h1>
+    <pre>
+duplicity incremental \
+  --exclude '/usr/home/sat/Maildir/.spam*' \
+  --exclude '/usr/home/sat/Maildir/**/dovecot*' \
+  --exclude '/usr/home/sat/.mairixdb' \
+  --include '/usr/home/sat' \
+  --include '/root' \
+  --include '/etc' \
+  --include '/usr/local/etc' \
+  --include '/var/db/pkg' \
+  --include '/var/named' \
+  --exclude '**' / ftp://…</pre>
+  </div>
+  <div class="slide">
+    <h1>duplicity - восстановление</h1>
+    <ul>
+      <li>любые файлы и папки</li>
+      <li>на любое время назад</li>
+      <li>предварительный просмотр изменившихся файлов</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>duplicity - надёжно</h1>
+    <ul>
+      <li>дешевизна позволяет легко дублировать бекап</li>
+      <li>подписи gpg предотвратят порчу данных</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>rdiff-backup - декременты</h1>
+    <ul>
+      <li>инкременты назад во времени</li>
+      <li>постоянный полный бекап</li>
+      <li>прямая доступность последней версии</li>
+      <li>уникальная компактность</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>rdiff-backup - мощно</h1>
+    <ul>
+      <li>поддерживает acl, extattr, carbon
+        <ul>
+          <li>в зависимости от ОС</li>
+        </ul>
+      </li>
+      <li>работает локально или через ssh
+        <ul>
+          <li>но сам бекап незашифрован</li>
+        </ul>
+      </li>
+      <li>на удалённом хосте потребуется rdiff-backup</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>rsyncrypto</h1>
+    <ul>
+      <li>шифрует файлы специальным образом</li>
+      <li>подходит для использования вместе с rsync и
+      rdiff-backup</li>
+    </ul>
+  </div>
+  <div class="slide titlepage">
+    <h2><a href=
+    "http://rsync.samba.org/">http://rsync.samba.org/</a></h2>
+    <h2><a href=
+    "http://www.nongnu.org/rdiff-backup/">http://www.nongnu.org/rdiff-backup/</a></h2>
+    <h2><a href=
+    "http://duplicity.nongnu.org/">http://duplicity.nongnu.org/</a></h2>
+    <h2><a href=
+    "http://rsyncrypto.lingnu.com/">http://rsyncrypto.lingnu.com/</a></h2>
+  </div>
+  <div class="slide cover title titlepage">
+    <h1>monit</h1>
+    <h2>простой мониторинг</h2>
+  </div>
+  <div class="slide">
+    <h1>Задача</h1>
+    <ul>
+      <li>Следить за состоянием процессов</li>
+      <li>Поднимать упавшие</li>
+      <li>Опускать сбоящие</li>
+      <li>Перезапускать зависшие</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Задача</h1>
+    <ul>
+      <li>Предпринимать любые действия по гибко заданным
+      событиям</li>
+      <li>Уведомлять администраторов и вести журналы</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Решение</h1>
+    <ul>
+      <li>Nagios?</li>
+      <li>Zabbix?</li>
+      <li>OpenView?</li>
+      <li>Дорого и сложно</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Решение</h1>
+    <ul>
+      <li>djb daemontools?</li>
+      <li>Apple launchd?</li>
+      <li>Sun SMF?</li>
+      <li>Ubuntu Upstart?</li>
+      <li>Непортируемо и напутано</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>monit</h1>
+    <ul>
+      <li>Это один (1) небольшой процесс</li>
+      <li>Это один (1) конфиг-файл</li>
+      <li>Полноценный мониторинг</li>
+      <li>Настраиваемые уведомления по SMTP</li>
+      <li>Автоматическое восстановление сервисов</li>
+      <li>Удобный доступ из консоли</li>
+      <li>Встроенный веб-интерфейс</li>
+      <li>Журналирование в syslog или отдельный log-файл</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Мониторинг</h1>
+    <ul>
+      <li>процессы и сервисы</li>
+      <li>файлы</li>
+      <li>папки</li>
+      <li>устройства</li>
+      <li>удалённые сервисы</li>
+      <li>состояние системы</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Процессы</h1>
+    <ul>
+      <li>Существование, по pid-файлу</li>
+      <li>Изменения PID</li>
+      <li>Изменения PPID</li>
+      <li>Количество потомков</li>
+      <li>Загрузка процессора (с потомками)</li>
+      <li>Загрузка памяти (с потомками и без)</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Процессы</h1>
+    <pre>
+if 2 restarts within 3 cycles then timeout
+if totalmem &gt; 100 Mb then alert
+if children &gt; 255 for 5 cycles then stop
+if cpu usage &gt; 95% for 3 cycles then restart</pre>
+  </div>
+  <div class="slide">
+    <h1>Сервисы</h1>
+    <ul>
+      <li>Удалённые и локальные</li>
+      <li>Проверка по протоколам
+        <ul>
+          <li>http, ftp, imap, mysql, pgsql, smtp, ntp, pop,
+          dns, ssh, …</li>
+        </ul>
+      </li>
+      <li>Поддержка SSL/TLS с проверкой подписи
+        <ul>
+          <li>https, ftps, imaps, pops, …</li>
+        </ul>
+      </li>
+      <li>UDP, TCP, ICMP, Unix domain sockets</li>
+      <li>Произвольно заданный текстовый протокол</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Сервисы</h1>
+    <pre>
+if failed url
+  http://bill:1337@msft.com:81/?query
+  and content == 'my.*regex' then alert
+if failed icmp type echo count 5
+  with timeout 15 seconds
+  then alert
+if failed port 80 proto http then alert
+if failed port 443 type TCPSSL proto http
+  then alert
+if failed host cave.persia.ir port 4040
+  send "Open, Sesame!\r\n"
+  expect "Please enter the cave\r\n"
+then restart</pre>
+  </div>
+  <div class="slide">
+    <h1>Файлы и папки</h1>
+    <ul>
+      <li>Контрольная сумма md5 или sha1</li>
+      <li>Время изменения (mtime)</li>
+      <li>Размер</li>
+      <li>Содержимое (regex)</li>
+      <li>Флаги</li>
+      <li>Разрешения</li>
+      <li>Пользователь, группа</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Файлы и папки</h1>
+    <pre>
+if changed checksum then exec "echo 123"
+if failed checksum and 
+ expect the sum 8f7f419955cefa0b33a2ba316cba3659
+ then alert
+if changed timestamp then exec 'apache.sh restart'
+if size &gt; 50 MB then exec 'logrotate'
+if match 'Houston, we have a problem' then alert
+check file su with path /bin/su
+  if changed size then exec "ifconfig fxp0 down"</pre>
+  </div>
+  <div class="slide">
+    <h1>Файловые системы</h1>
+    <ul>
+      <li>Свободное место</li>
+      <li>Использование inode-ов</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Файловые системы</h1>
+    <pre>
+ check device rootfs with path /dev/hda1
+  if space usage &gt; 80% 5 times within 15 cycles 
+     then alert 
+     else if passed for 10 cycles then alert
+  if space usage &gt; 90% for 5 cycles then 
+     exec '/try/to/free/the/space'
+  if space usage &gt; 99% then exec 'kill -9 1'</pre>
+  </div>
+  <div class="slide">
+    <h1>Удалённые файлы</h1>
+    <ul>
+      <li>Доступ по HTTP</li>
+      <li>Проверка контрольной суммы md5 или sha1</li>
+    </ul>
+    <pre>
+if failed port 80 protocol http
+  and request "/page.html"
+  with checksum 350d6c0157a04c84012475bd87609db4
+  then alert</pre>
+  </div>
+  <div class="slide">
+    <h1>Система</h1>
+    <ul>
+      <li>Средняя загрузка за 1, 5, 15 минут</li>
+      <li>Загрузка процессора
+        <ul>
+          <li>user, system</li>
+        </ul>
+      </li>
+      <li>Загрузка памяти</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Система</h1>
+    <pre>
+if loadavg (1min) &gt; 4 then alert
+if loadavg (5min) &gt; 2 then alert
+if memory usage &gt; 75% then alert
+if cpu usage (user) &gt; 70% then alert
+if cpu usage (system) &gt; 30% then alert
+if cpu usage (wait) &gt; 20% then alert</pre>
+  </div>
+  <div class="slide">
+    <h1>Действия</h1>
+    <ul>
+      <li>уведомление</li>
+      <li>запуск, остановка, перезапуск</li>
+      <li>исполнение любого скрипта или программы
+        <ul>
+          <li>под любыми пользователем и группой</li>
+        </ul>
+      </li>
+      <li>включение, выключение мониторинга</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Действия</h1>
+    <pre>
+then alert
+then stop
+then restart
+then exec 'true' as uid 1 gid 1
+then unmonitor</pre>
+  </div>
+  <div class="slide">
+    <h1>Уведомления</h1>
+    <ul>
+      <li>полностью настраиваемый формат</li>
+      <li>легко автоматически обрабатывать</li>
+      <li>буфер любого размера на случай временного отказа
+      почты</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>CLI-интерфейс</h1>
+    <pre>
+monit summary
+  The monit daemon 4.10.1 uptime: 10h 53m
+  Process 'vpnc'                      running
+  System 'pollux.cenkes.org'          running
+monit status
+monit reload
+monit validate
+monit restart apache
+monit restart all</pre>
+  </div>
+  <div class="slide">
+    <h1>Веб-интерфейс</h1>
+    <ul>
+      <li>Полный аналог текстового</li>
+      <li>Совместим с текстовыми браузерами</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Недостатки</h1>
+    <ul>
+      <li>Однотредовый, синхронный</li>
+      <li>Нет произвольных проверок (скриптами)</li>
+      <li>Плохо расширяем
+        <ul>
+          <li>Кто портирует на Perl?</li>
+        </ul>
+      </li>
+      <li>Не рассчитан near-realtime проверки</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Преимущества</h1>
+    <ul>
+      <li>Предельная простота</li>
+      <li>Быстрый и маленький процесс</li>
+      <li>Чаще удобней запустить monit, чем написать
+      костыль</li>
+    </ul>
+  </div>
+  <div class="slide titlepage">
+    <h1><a href=
+    "http://mmonit.com/monit/">mmonit.com/monit/</a></h1>
+  </div>
+  <div class="slide cover titlepage">
+    <h1>Рабочая среда *nix-админа</h1>
+  </div>
+  <div class="slide">
+    <h1>Дисклеймер</h1>
+    <ul>
+      <li>это лишь пример</li>
+      <li>неудачный гибрид микроскопа и молотка</li>
+      <li>неудобный, неуклюжий</li>
+      <li>постоянно меняющийся</li>
+      <li>мощный и практичный для узкого круга людей</li>
+    </ul>
+  </div>
+  <div class="slide titlepage">
+    <h1>немного скриншотов</h1>
+  </div>
+  <div class="slide titlepage">
+    <h1>браузер</h1>
+  </div>
+  <div class="slide scr"><img src="firefox.png" alt=
+  "screenshot" /></div>
+  <div class="slide scr"><img src="firefox-buffers.png" alt=
+  "screenshot" /></div>
+  <div class="slide scr"><img src="firefox-F.png" alt=
+  "screenshot" /></div>
+  <div class="slide titlepage">
+    <h1>консоль</h1>
+  </div>
+  <div class="slide scr"><img src="console.png" alt=
+  "screenshot" /></div>
+  <div class="slide titlepage">
+    <h1>удалённые консоли</h1>
+  </div>
+  <div class="slide scr"><img src="remote1.png" alt=
+  "screenshot" /></div>
+  <div class="slide scr"><img src="remote2.png" alt=
+  "screenshot" /></div>
+  <div class="slide titlepage">
+    <h1>mutt</h1>
+  </div>
+  <div class="slide scr"><img src="mutt.png" alt=
+  "screenshot" /></div>
+  <div class="slide titlepage">
+    <h1>w3m</h1>
+  </div>
+  <div class="slide scr"><img src="w3m.png" alt=
+  "screenshot" /></div>
+  <div class="slide titlepage">
+    <h1>vim</h1>
+  </div>
+  <div class="slide scr"><img src="vim.png" alt=
+  "screenshot" /></div>
+  <div class="slide titlepage">
+    <h1>mplayer</h1>
+  </div>
+  <div class="slide scr"><img src="mplayer.png" alt=
+  "screenshot" /></div>
+  <div class="slide titlepage">
+    <h1>sonata</h1>
+  </div>
+  <div class="slide scr"><img src="sonata.png" alt=
+  "screenshot" /></div>
+  <div class="slide titlepage">
+    <h1>gimp</h1>
+  </div>
+  <div class="slide scr"><img src="gimp.png" alt=
+  "screenshot" /></div>
+  <div class="slide">
+    <h1>Идеология</h1>
+    <ul>
+      <li>KISS - просто и тупо</li>
+      <li>ничего лишнего</li>
+      <li>всё под рукой</li>
+      <li>внимание - золото</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Простота</h1>
+    <ul>
+      <li>одно окно на экране</li>
+      <li>одна задача в окне</li>
+      <li>два глаза на задаче</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Ничего лишнего</h1>
+    <ul>
+      <li>часы</li>
+      <li>тулбары, таскбары</li>
+      <li>погода на 10 дней вперёд</li>
+      <li>показания 57 основных датчиков компьютера</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Атомы внимания</h1>
+    <ul>
+      <li>пиксели экрана</li>
+      <li>многотредовое мышление</li>
+      <li>скорость перевода взгляда</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Глаза</h1>
+    <ul>
+      <li>поле зрения</li>
+      <li>размер шрифта</li>
+      <li>размер терминала</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Мышь</h1>
+    <ul>
+      <li>полезный инструмент
+        <ul>
+          <li>Counter-Strike, WoW, MS Windows</li>
+        </ul>
+      </li>
+      <li>опасный инструмент
+        <ul>
+          <li>отнимает время, связывает руки, снижает iq</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Клавиатура</h1>
+    <ul>
+      <li>~100 клавиш</li>
+      <li>~10000 сочетаний из двух</li>
+      <li>~1000000 сочетаний из трёх</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Ограничения</h1>
+    <ul>
+      <li>в каждом из них есть преимущества</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Попробуйте</h1>
+    <ul>
+      <li>неделю без мышки</li>
+      <li>неделю без автоповтора</li>
+      <li>неделю без графики</li>
+      <li>
+        <del>неделю без компьютера</del>
+      </li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Реализация</h1>
+    <ul>
+      <li>простой оконный менеджер - dwm</li>
+      <li>мультиплексор консоли - screen</li>
+      <li>демаразматор браузера - vimperator</li>
+      <li>лучший шелл в мире - <del>PowerShell</del> zsh
+      </li>
+      <li>больное воображение</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>dwm</h1>
+    <ul>
+      <li>автопривязка окон к виртуальным рабочим столам</li>
+      <li>управление с клавиатуры</li>
+      <li>Caps+1 - консоль</li>
+      <li>Caps+2 - браузер</li>
+      <li>Caps+3 - кино</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>screen</h1>
+    <ul>
+      <li>мобильный компутинг</li>
+      <li>опять размер терминала</li>
+      <li>ssh в новом окне по умолчанию</li>
+      <li>горячие клавиши: больше - лучше</li>
+      <li>Alt+1 - почта</li>
+      <li>Alt+2 - локальный шелл</li>
+      <li>Shift+Alt+9 - шелл на FreeBSD.org</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>screen²</h1>
+    <ul>
+      <li>удалённые мультиплексированные консоли</li>
+      <li>безполезненные дисконнекты</li>
+      <li>Ctrl+R - удалённый эскейпинг</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>x11</h1>
+    <ul>
+      <li>xmodmap - перестановка клавиш</li>
+      <li>xbindkeys - подогрев клавиш</li>
+      <li>xset, xrdb, xte, … - прочие трюки</li>
+      <li>Win+r - русская раскладка</li>
+      <li>Win+e - English</li>
+      <li>Win+j - カタカナ</li>
+      <li>Win+a - العربية</li>
+      <li>Multi_key - композитные знаки - ☭…½㉒¢₇«»</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>mutt</h1>
+    <ul>
+      <li>почта по-человечески</li>
+      <li>но медленный IMAP</li>
+      <li>ещё есть alpine</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>w3m</h1>
+    <ul>
+      <li>отдых глазам</li>
+      <li>легче редактировать</li>
+      <li>Web 1.0 compatible</li>
+      <li>элитно</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>vim</h1>
+    <ul>
+      <li>лучший редактор для тех, кто не знает Lisp</li>
+      <li>и для остальных</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>vimperator</h1>
+    <ul>
+      <li>Firefox: укращение голыми руками</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>zsh</h1>
+    <ul>
+      <li>не пытайтесь выучить man zshall</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>rxvt-unicode</h1>
+    <ul>
+      <li>относится к xterm так же, как zsh к bash</li>
+      <li>
+        <del>так же, как FreeBSD к Linux, vim к emacs, pgsql к
+        mysql</del>
+      </li>
+      <li>то есть просто лутьше</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>x2x</h1>
+    <ul>
+      <li>одна клавиатура</li>
+      <li>одна мышь</li>
+      <li>много компутеров</li>
+      <li>много экранов</li>
+      <li>дзен</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Ссылки</h1>
+    <h2><a href="http://dwm.suckless.org/">dwm</a>, <a href=
+    "http://software.schmorp.de/pkg/rxvt-unicode.html">rxvt-unicode</a>,
+    <a href="http://vimperator.org/">vimperator</a>, <a href=
+    "http://www.gnu.org/software/screen/">screen</a>, <a href=
+    "http://www.mutt.org/">mutt</a>, <a href=
+    "http://w3m.sourceforge.net/">w3m</a>, <a href=
+    "http://x2x.dottedmag.net/">x2x</a>, <a href=
+    "http://www.vim.org/">vim</a>, <a href=
+    "http://zsh.sourceforge.net/">zsh</a>, <a href=
+    "http://hocwp.free.fr/xbindkeys/xbindkeys.html">xbindkeys</a></h2>
+  </div>
+</body>
+</html>
