@@ -8,7 +8,7 @@ vim: set expandtab
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang=
 "ru-RU">
 <head>
-  <title>OSDeath</title>
+  <title>OS Death</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="copyright" content="Copyright © 2011 Andrew Pantyukhin" />
   <link rel="stylesheet" href="slidy.css" type="text/css" media=
@@ -19,200 +19,192 @@ vim: set expandtab
 <body>
   <div class="slide scr"><img src="ebsdc11.png" alt="SeriousFOSS" /></div>
   <div class="slide cover title titlepage">
-    <h1>Механика open source в «серьёзном» бизнесе</h1>
+    <h1>The Obsoletion of the OS</h1>
     <br/>
-    <h2>релятивистские эффекты</h2>
+    <h2></h2>
     <br/>
     <br/>
     <h3><a href="tech@dreamindustries.ru">andrew@dreamindustries.ru</a></h3>
   </div>
-  <div class="slide title titlepage">
-    <h1>open source?</h1>
-  </div>
   <div class="slide">
-    <h1>состав</h1>
+    <h1>the Unix OS</h1>
     <ul>
-      <li>идеология</li>
-      <li>люди, сообщества</li>
-      <li>код</li>
+      <li>1970s — comprehensive platform complete with apps</li>
+      <li>1990s — nice platform to run third-party apps</li>
+      <li>2010s — thin sub-middleware layer</li>
     </ul>
   </div>
   <div class="slide">
-    <h1>цифры</h1>
+    <h1>operating system</h1>
     <ul>
-      <li>1 миллион разработчиков на github</li>
-      <li>2 миллиона репозиториев на github</li>
-      <li>300 тысяч проектов на sourceforge</li>
-      <li>20 тысяч программ в портах FreeBSD и пакетах Debian</li>
-    </ul>
-  </div>
-  <div class="slide title titlepage">
-    <h1>serious business?</h1>
-  </div>
-  <div class="slide">
-    <h1>состав</h1>
-    <ul>
-      <li>серьёзные деньги</li>
-      <li>опытные специалисты</li>
-      <li>глубокая модель</li>
-    </ul>
-  </div>
-  <div class="slide title titlepage">
-    <h1>business &amp; OSS?</h1>
-  </div>
-  <div class="slide">
-    <h1>отношения</h1>
-    <ul>
-      <li><strong>потреблять</strong> (Facebook, ...)</li>
-      <li>производить (Red Hat, ...)</li>
-      <li>привлекать (Google, ...)</li>
+      <li>meeting point</li>
+      <li>implementation repo</li>
+      <li>academic vehicle</li>
     </ul>
   </div>
   <div class="slide">
-    <h1>традиции</h1>
+    <h1>good old times</h1>
     <ul>
-      <li>игнорировать открытость</li>
-      <li>использовать бесплатность</li>
-      <li>временами что–то тюнить</li>
+      <li>data</li>
+      <li>server OS (Unix)</li>
+      <li>user</li>
     </ul>
   </div>
   <div class="slide">
-    <h1>результат</h1>
+    <h1>wasted effort ...</h1>
     <ul>
-      <li>беспорядочные миграции</li>
-      <li>постоянная неудовлетворённость</li>
-      <li>переход на закрытые решения или прозябание</li>
-    </ul>
-  </div>
-  <div class="slide title titlepage">
-    <h2>doing it right™</h2>
-  </div>
-  <div class="slide">
-    <h1>учиться</h1>
-    <ul>
-      <li>мотивация — личные достижения, профессиональный интерес</li>
-      <li>управление — меритократия, оттенки диктатуры</li>
-      <li>планирование — краткие сроки, выпуск достижений</li>
+      <li>server OS (FreeBSD, etc)</li>
+      <li>server middleware (hadoop, etc)</li>
+      <li>server app (Facebook PHP, etc)</li>
     </ul>
   </div>
   <div class="slide">
-    <h1>дедлайны</h1>
+    <h1>... wasted effort</h1>
     <ul>
-      <li>не должны мешать стратегии</li>
-      <li>управление будущим</li>
-      <li>эффект бабочки, резонансы и посевы</li>
+      <li>client OS (PC-BSD, etc)</li>
+      <li>client middleware (browsers, etc)</li>
+      <li>client app (Facebook JS, etc)</li>
     </ul>
   </div>
   <div class="slide">
-    <h1>примеры удочек</h1>
+    <h1>Chrome OS</h1>
     <ul>
-      <li>FreeBSD/amd64 Nvidia GPU driver</li>
-      <li>taglib-based CLI id3 v2.3 tagger</li>
-      <li>Supermicro IPv6 IPMI</li>
+      <li>consolidating client side</li>
+      <li>only in concept</li>
     </ul>
   </div>
   <div class="slide">
-    <h1>задачи</h1>
+    <h1>large systems</h1>
     <ul>
-      <li>растут из технологий, не наоборот</li>
-      <li>технократия и перфекционизм</li>
-      <li>делегация творчества</li>
+      <li>Google, Facebook, Twitter, ...</li>
+      <li>a small company cluster</li>
+      <li>any two machines, e.g. client-server</li>
     </ul>
   </div>
   <div class="slide">
-    <h1>открытый космос</h1>
+    <h1>TCP/IP is evil</h1>
     <ul>
-      <li>вопросы в сообществе</li>
-      <li>баунти</li>
-      <li>контракты</li>
+      <li>never meant for intrasystem comms</li>
+      <li>utterly tenacious</li>
+      <li>preempted real distributed systems engineering</li>
     </ul>
   </div>
   <div class="slide">
-    <h1>time and materials</h1>
+    <h1>the cloud</h1>
     <ul>
-      <li>непредсказуемость</li>
-      <li>цена апстрим-коммита</li>
-      <li>человеческий фактор</li>
+      <li>does not tolerate inconveniences in the OS</li>
+      <li>happy to move any piece of logic up</li>
+      <li>happy to forget about the OS altogether (bare metal Java!)</li>
     </ul>
   </div>
   <div class="slide">
-    <h1>поддержка</h1>
+    <h1>should FreeBSD care?</h1>
     <ul>
-      <li>support-контракты</li>
-      <li>бронирование времени</li>
-      <li>рабочее время сотрудников</li>
+      <li>wasted effort</li>
+      <li>highly fragmented distributed engineering effort</li>
+      <li>extremely poor quality of net result</li>
     </ul>
   </div>
   <div class="slide">
-    <h1>сёрфинг по апдейтам</h1>
+    <h1>a way forward</h1>
     <ul>
-      <li>следствие внутренней технократии</li>
-      <li>тонус и ритм без усилий</li>
-      <li>критичные долгосрочные корректировки</li>
+      <li>look for obvious things to move down into the OS</li>
+      <li>provide useful conveniences</li>
+      <li>set the trend and define guidelines</li>
     </ul>
   </div>
   <div class="slide">
-    <h1>примеры сёрфинга</h1>
+    <h1>the usual impediment</h1>
     <ul>
-      <li>TrustedBSD audit, ugidfw</li>
-      <li>FreeBSD RADIX_MPATH, rctl(1)</li>
-      <li>PostgreSQL FDW</li>
-    </ul>
-  </div>
-  <div class="slide">
-    <h1>корзины и яйца</h1>
-    <ul>
-      <li>у большинства проблем есть решения на разных уровнях</li>
-      <li>избыточные посевы</li>
-      <li>пример: nginx, UFS, application</li>
-    </ul>
-  </div>
-  <div class="slide">
-    <h1>вишлистинг pro</h1>
-    <ul>
-      <li>каждая проблема — 2–3 новых пожелания</li>
-      <li>изолированные, самодостаточные задачи</li>
-      <li>публикации и прочие резонансы</li>
-    </ul>
-  </div>
-  <div class="slide">
-    <h1>серьёзный b2b</h1>
-    <ul>
-      <li>волшебное слово для обмена секретной технологической информацией</li>
-      <li>offloading задач на более крупные компании</li>
-      <li>эксклюзивные партнёрства</li>
-    </ul>
-  </div>
-  <div class="slide">
-    <h1>менеджмент вовне</h1>
-    <ul>
-      <li>1 миллион разработчиков vs ?? сотрудников</li>
-      <li>где-то в пустыне между PM, SMM и community management</li>
-      <li>Google Summer of Code как апогей</li>
-    </ul>
-  </div>
-  <div class="slide">
-    <h1>своя агенда</h1>
-    <ul>
-      <li>гибридные экосистемы на закрытых и открытых компаниях</li>
-      <li>инициирующий серьёзный бизнес в центре</li>
-      <li>пример: meatcore</li>
-    </ul>
-  </div>
-  <div class="slide">
-    <h1>напоследок</h1>
-    <ul>
-      <li>open source уважает коммерческий интерес</li>
-      <li>даже без денег</li>
-      <li>заявка о статусе</li>
+      <li>the larger the system —</li>
+      <li>— the more the experience and ideas</li>
+      <li>— the less time to speak and contribute</li>
     </ul>
   </div>
   <div class="slide titlepage">
-    <h2>dig open source?</h2>
+    <h1>illustrations</h1>
+  </div>
+  <div class="slide">
+    <h1>role aware rc</h1>
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>rc.conf.d</h1>
+    <pre>
+case `hostname -s` in
+z[0-9]*|h22|nemea|h4|lw[1-2])
+	nginx_enable="YES"
+	nginx_profiles="default zdata"
+	;;
+esac
+    </pre>
+  </div>
+  <div class="slide">
+    <h1>machine generated data</h1>
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>task contracts</h1>
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>task baby-sitting</h1>
+    <ul>
+      <li>launchd/fcs</li>
+      <li>crontab: pgrep || start</li>
+      <li>monitd, etc</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>AAA</h1>
+    <ul>
+      <li>LDAP/GSS</li>
+      <li>master.passwd(5), group(5) in git(1)</li>
+      <li></li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1></h1>
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1></h1>
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1></h1>
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+  <div class="slide titlepage">
+    <h1>questions?</h1>
     <br/>
-    <h1>we're hiring!</h1>
+    <h1>we're funding! (and hiring)</h1>
     <br/>
-    <h1><a href="mailto:open@dreamindustries.ru">open@di.vc</a></h1>
+    <h1><a href="mailto:infofarmer@FreeBSD.org">infofarmer@FreeBSD.org</a></h1>
   </div>
 </body>
 </html>
