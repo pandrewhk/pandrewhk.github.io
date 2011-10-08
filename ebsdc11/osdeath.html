@@ -44,7 +44,7 @@ vim: set expandtab
     </ul>
   </div>
   <div class="slide">
-    <h1>good old times</h1>
+    <h1>good ol' times</h1>
     <ul>
       <li>data</li>
       <li>server OS (Unix)</li>
@@ -136,9 +136,9 @@ vim: set expandtab
   <div class="slide">
     <h1>role aware rc</h1>
     <ul>
-      <li></li>
-      <li></li>
-      <li></li>
+      <li>one /etc for all machines</li>
+      <li>infectious boot: pxe, hdd, usb</li>
+      <li>/ in git</li>
     </ul>
   </div>
   <div class="slide">
@@ -183,7 +183,6 @@ esac
     <ul>
       <li>LDAP/GSS</li>
       <li>master.passwd(5), group(5) in git(1)</li>
-      <li></li>
     </ul>
   </div>
   <div class="slide">
@@ -199,8 +198,33 @@ esac
     <h1>HW fault tolerance</h1>
     <ul>
       <li>ipmitool</li>
-      <li>memory testing</li>
       <li>disk error counters</li>
+      <li>memory testing</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>massive execution</h1>
+    <ul>
+      <li><pre>zz -grole1,role2 -Xrole3,role4 uptime</pre></li>
+      <li>distributed uptime, df, w, top, ...</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>storage</h1>
+    <ul>
+      <li>RAID, HAST hard to justify on a scale</li>
+      <li>ZFS limited to one node</li>
+      <li>no useful distributed fs</li>
+      <li>UFS2 + nginx + custom dispatcher</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1></h1>
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
     </ul>
   </div>
   <div class="slide">
@@ -210,6 +234,7 @@ esac
       <li>rctl</li>
       <li>pkgng</li>
       <li>SU+J</li>
+      <li>bsnmpd</li>
     </ul>
   </div>
   <div class="slide titlepage">
