@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- vim:ts=8:sw=2
+    -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang=
+"ru-RU">
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for FreeBSD (vers 7 December 2008), see www.w3.org" />
+  <title>FreeBSD Storage 2010</title>
+  <meta http-equiv="Content-Type" content=
+  "text/html; charset=utf-8" />
+  <meta name="copyright" content=
+  "Copyright © 2010 Андрей Пантюхин" />
+  <link rel="stylesheet" href="slidy.css" type="text/css" media=
+  "screen, projection, print" />
+  <script src="slidy.js" charset="utf-8" type="text/javascript">
+</script>
+</head>
+<body>
+  <div class="slide">
+    <h1>FreeBSD storage 2010</h1>
+    <ul>
+      <li>HAST</li>
+      <li>SU+J</li>
+      <li>geom_sched</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>HAST</h1>
+    <ul>
+      <li>~DRBD, (iscsi/ggate+gmirror)++</li>
+      <li>anti-split-brain, ZFS support, memsync/fullsync</li>
+      <li>FreeBSD foundation, OMCnet, Internet Service GmbH, TransIP BV</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>SU+J</h1>
+    <ul>
+      <li>SoftUpdates - сложно, но очень быстро</li>
+      <li>SU+J - журналирование части операций, 16MB enough</li>
+      <li>полное восстановление за 0.1-10 секунд</li>
+      <li>iXsystems, Yahoo!, Juniper</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>geom_sched</h1>
+    <ul>
+      <li>фреймворк планировщиков доступа к storage</li>
+      <li>gsched_rr - простой ожидающий планировщик</li>
+      <li>прозрачное подключение</li>
+    </ul>
+  </div>
+  <div class="slide titlepage">
+    <h2><a href="http://wiki.freebsd.org/HAST">wiki.freebsd.org/HAST</a></h2>
+    <h2><a href="http://wiki.freebsd.org/SUJ">wiki.freebsd.org/SUJ</a></h2>
+    <h2><a href="http://info.iet.unipi.it/~luigi/geom_sched/">info.iet.unipi.it/~luigi/geom_sched/</a></h2>
+  </div>
+</body>
+</html>

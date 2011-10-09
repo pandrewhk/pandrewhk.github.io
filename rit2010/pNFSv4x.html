@@ -79,7 +79,8 @@
   <div class="slide">
     <h1>NAS и SAN: будущее</h1>
     <ul>
-      <li>NAS ☺</li>
+      <li>тесно интегрированные решения</li>
+      <li>pNFS = NAS + SAN</li>
     </ul>
   </div>
   <div class="slide">
@@ -102,7 +103,7 @@
     </ul>
   </div>
   <div class="slide">
-    <h1>NFS: history</h1>
+    <h1>NFS: история</h1>
     <ul>
       <li>v1 - 1984 (Sun)</li>
       <li>v2 - 1989 (Sun)</li>
@@ -127,11 +128,11 @@
       <li>на основе протоколов ONC RPC и XDR</li>
       <li>аутентификация и шифрование через GSS (Kerberos)</li>
       <li>авторизация через политики exports, ACL</li>
-      <li>advisory locks до v3, в v4 - mandatory</li>
+      <li>advisory locking (в v4 - mandatory)</li>
     </ul>
   </div>
   <div class="slide">
-    <h1>NFS v4: новые цели</h1>
+    <h1>NFSv4: цели</h1>
     <ul>
       <li>лучшая доступность и скорость over Internet</li>
       <li>обязательная безопасность, negotiation</li>
@@ -140,7 +141,7 @@
     </ul>
   </div>
   <div class="slide">
-    <h1>NFS v4: результаты</h1>
+    <h1>NFSv4: результаты</h1>
     <ul>
       <li>перешёл из Sun в IETF</li>
       <li>RPCSEC_GSS, Kerberos security schemes</li>
@@ -150,7 +151,7 @@
     </ul>
   </div>
   <div class="slide">
-    <h1>NFS v4: безопасность</h1>
+    <h1>NFSv4: безопасность</h1>
     <ul>
       <li>RPCSEC_GSS (RFC2203)</li>
       <li>authentication, integrity, privacy</li>
@@ -160,7 +161,7 @@
     </ul>
   </div>
   <div class="slide">
-    <h1>NFS v4: COMPOUND RPC</h1>
+    <h1>NFSv4: COMPOUND RPC</h1>
     <ul>
       <li>чтение файла с нового сервера одним запросом</li>
       <li>эффективность HTTP</li>
@@ -168,7 +169,7 @@
     </ul>
   </div>
   <div class="slide">
-    <h1>NFS v4: файловая модель</h1>
+    <h1>NFSv4: файловая модель</h1>
     <ul>
       <li>только UTF-8</li>
       <li>монтирования нет, сервер отдаёт один ROOT FH</li>
@@ -178,7 +179,7 @@
     </ul>
   </div>
   <div class="slide">
-    <h1>NFS v4: репликация и миграция</h1>
+    <h1>NFSv4: репликация и миграция</h1>
     <ul>
       <li>атрибут locations может сообщать клиенту о других серверах</li>
       <li>клиент мигрирует при отключении текущего сервера</li>
@@ -186,7 +187,7 @@
     </ul>
   </div>
   <div class="slide">
-    <h1>NFS v4: locking</h1>
+    <h1>NFSv4: locking</h1>
     <ul>
       <li>встроенный byte-range locking</li>
       <li>lease-модель обеспечивает быстрое восстановление</li>
@@ -194,7 +195,7 @@
     </ul>
   </div>
   <div class="slide">
-    <h1>NFS v4: caching, delegation</h1>
+    <h1>NFSv4: caching, delegation</h1>
     <ul>
       <li>кэширование директорий и атрибутов определяется клиентом</li>
       <li>кэши данных валидируются при открытии</li>
@@ -204,7 +205,7 @@
     </ul>
   </div>
   <div class="slide">
-    <h1>NFS v4: support</h1>
+    <h1>NFSv4: поддержка</h1>
     <ul>
       <li>Solaris - самая полная поддержка</li>
       <li>Linux - широкая поддержка, есть баги</li>
@@ -214,7 +215,7 @@
     </ul>
   </div>
   <div class="slide">
-    <h1>NFS v4.1: новые цели</h1>
+    <h1>NFSv4.1: цели</h1>
     <ul>
       <li>RFC5661 - самый длинный RFC-документ в истории</li>
       <li>исправление структурных недостатков NFS</li>
@@ -223,22 +224,78 @@
     </ul>
   </div>
   <div class="slide">
+    <h1>NFSv4.1: multi-server</h1>
+    <ul>
+      <li>атрибут locations в роли referrals</li>
+      <li>первый шаг к FedFS</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>pNFS</h1>
+    <pre class="smaller">
++-----------+
+|+-----------+                                 +-----------+
+||+-----------+                                |           |
+|||           |        NFSv4.1 + pNFS          |           |
++||  Clients  |<------------------------------>|   Server  |
+ +|           |                                |           |
+  +-----------+                                |           |
+       |||                                     +-----------+
+       |||                                           |
+       |||                                           |
+       ||| Storage        +-----------+              |
+       ||| Protocol       |+-----------+             |
+       ||+----------------||+-----------+  Control   |
+       |+-----------------|||           |    Protocol|
+       +------------------+||  Storage  |------------+
+                           +|  Devices  |
+                            +-----------+
+    </pre>
+  </div>
+  <div class="slide">
     <h1>pNFS</h1>
     <ul>
       <li>EMC, IBM, LSI, NetApp, Panasas, Google, Sun, …</li>
       <li>промышленный опыт: NetApp, Panasas, Isilon, …</li>
-      <li>в открытой разработке с 2004 года, релиз в январе 2010</li>
+      <li>в открытой разработке с 2003 года, релиз в январе 2010</li>
       <li>NFSv4.1, block pNFS (RFC5663), object pNFS (RFC5664)</li>
     </ul>
   </div>
   <div class="slide">
-    <h1>pNFS I/O</h1>
+    <h1>pNFS: I/O</h1>
     <ul>
-      <li>файлы, объекты или блоки</li>
-      <li>NFSv4.1 даёт клиенту layout и доступ к storage</li>
+      <li>уровни: файлы, объекты или блоки</li>
+      <li>сервера делятся на metadata servers и storage devices</li>
       <li>клиент производит I/O напрямую</li>
       <li>клиент отдаёт серверу новый layout</li>
       <li>клиент может всегда выбрать обычный NFSv4.1 I/O</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>pNFS: metadata servers</h1>
+    <ul>
+      <li>даёт клиенту layout и доступ к storage</li>
+      <li>клиент производит I/O напрямую</li>
+      <li>клиент отдаёт серверу новый layout</li>
+      <li>клиент может всегда выбрать обычный v4.1 I/O</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>pNFS: storage servers</h1>
+    <ul>
+      <li>file - другой NFSv4.1 сервер</li>
+      <li>block - блочное хранилище (SAN)</li>
+      <li>object - объектное хранилище (OSD)</li>
+      <li>что-то ещё, поддерживающее NFSv4.1 storage protocol</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>object storage?</h1>
+    <ul>
+      <li>идеальная основа для cluster storage</li>
+      <li>объект - как inode: данные и атрибуты</li>
+      <li>OSDv1/v2 - стандартные наборы команд SCSI</li>
+      <li>аппаратная поддержка объектов</li>
     </ul>
   </div>
   <div class="slide">
@@ -246,6 +303,61 @@
     <ul>
       <li>клиенты: Linux, Solaris, …</li>
       <li>серверы: NetApp, Panasas, Linux, Solaris, IBM, EMC, …</li>
+      <li>FreeBSD - ?</li>
+      <li>NetApp, Panasas, Isilon, IBM Series N - FreeBSD!</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>NFS over RDMA</h1>
+    <ul>
+      <li>RDMA - не только InfiniBand/iWARP/Myrinet, но и 10GbE</li>
+      <li>скоростной доступ к удалённой памяти без CPU</li>
+      <li>RPCRDMA - скоростная работа RPC по RDMA</li>
+      <li>NFS over RDMA - NFS любых версий по RPCRDMA</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>FedFS: цели</h1>
+    <ul>
+      <li>набор протоколов для федеративных файловых систем</li>
+      <li>доступен для обычных клиентов NFSv4 и NFSv4.1</li>
+      <li>участники сохраняют контроль над своими системами</li>
+      <li>масштабируемость по географии, числу клиентов, файлов, серверов</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>FedFS: протоколы</h1>
+    <ul>
+      <li>NSDB - DNS для файлов на основе LDAP</li>
+      <li>Junction admin - управление разделами по ONC RPC</li>
+      <li>Namespace discovery - на базе DNS SRV</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>FedFS: результаты</h1>
+    <ul>
+      <li>упрощает администрирование</li>
+      <li>разделяет физическое местонахождение данных от логического</li>
+      <li>упрощает миграцию и HA/LB-репликацию данных</li>
+      <li>существенно упрощает облачное хранение данных</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>FedFS: поддержка клиентами</h1>
+    <ul>
+      <li>AIX - 2004</li>
+      <li>HPUX - 2008</li>
+      <li>Linux - 2006</li>
+      <li>OpenSolaris - 2010</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Вопросы?</h1>
+    <ul>
+      <li>о чём был доклад?</li>
+      <li>что такое NFS?</li>
+      <li>а обед уже был?</li>
+      <li>когда докладчик последний раз брился?</li>
     </ul>
   </div>
   <div class="slide titlepage">

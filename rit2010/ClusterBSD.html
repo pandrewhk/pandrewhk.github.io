@@ -79,13 +79,13 @@
       <li>отличная бездисковая работа</li>
       <li>Brooks Davis - Aerospace Corp.</li>
       <li>Harrison Grundy - Astrodog Ltd.</li>
-      <li>Industrial Light &nbsp; Magic; Manex VFX («The Matrix»), …</li>
+      <li>Industrial Light &amp; Magic; Manex VFX («The Matrix»), …</li>
     </ul>
   </div>
   <div class="slide">
     <h1>проблемы Linux</h1>
     <ul>
-      <li>Enterprise Linux? … уж лучше Solaris</li>
+      <li>Enterprise Linux? … <del>уж лучше Solaris</del></li>
       <li>заброшенная поддержка бездисковой работы</li>
       <li>страшная документация (ifconfig deprecated, ip unused)</li>
     </ul>
@@ -103,7 +103,7 @@
     <ul>
       <li><del>Active Directory</del> LDAP</li>
       <li><em>Kerberos</em></li>
-      <li>PAM, …</li>
+      <li>PAM, nss, …</li>
     </ul>
   </div>
   <div class="slide">
@@ -128,7 +128,7 @@
     <h1>Stateless</h1>
     <ul>
       <li>PXE boot</li>
-      <li>read-only NFS root</li>
+      <li>read-only NFS root, read-write non-root</li>
       <li>read-write swap-backed unionfs</li>
     </ul>
   </div>
@@ -146,17 +146,184 @@
     <ul>
       <li>отличная поддержка во FreeBSD</li>
       <li>баг: грузиться можно только с FreeBSD-серверов :-)</li>
+      <li>/nfs/{home,share,data} - read-write NFS</li>
     </ul>
   </div>
   <div class="slide">
-    <div class="center">
-    <img class="center" src="eurobsdcon.png" alt="EuroBSDCon" /></div>
+    <h1>rw swap unionfs</h1>
+    <ul>
+      <li>mdconfig_md0="-t swap -s 512m -o force -o compress"</li>
+      <li>/dev/md0 /swapmd ufs rw,noatime</li>
+      <li>/swapmd /var unionfs rw,noatime</li>
+      <li>изредка паникует</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>scratch space</h1>
+    <ul>
+      <li>/var хватает для небольшого скоростного storage</li>
+      <li>/nfs/data хватает для большого storage</li>
+      <li>на самом деле даже NFSv3 даёт ~50-70MB/s</li>
+      <li>latency хорошего NFS сравнимы с SAS HDD</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Управление: традиции</h1>
+    <ul>
+      <li>puppet, cfengine, chef, bcfg2</li>
+      <li>монолитные "гибкие" решения</li>
+      <li>нарушение простоты критических подсистем</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Управление: здравый смысл</h1>
+    <ul>
+      <li>максимальная унификация</li>
+      <li>централизация отличий</li>
+      <li>простота и прозрачность</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Управление: модели</h1>
+    <ul>
+      <li>push - немедленное изменение на всех машинах</li>
+      <li>pull - отложенное применение изменений</li>
+      <li>работа с нерабочими машинами</li>
+      <li>границы между pull и push всегда размытые</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Управление: FreeBSD</h1>
+    <ul>
+      <li>NFS-based */etc/rc* — pull+push</li>
+      <li>pssh — ещё push</li>
+      <li>ветвления rc.conf.d</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>rc.conf.d branching</h1>
+    <pre class="smaller">
+case `hostname -s` in
+sx3)
+  pbs_server_enable="YES"
+  pbs_sched_enable="YES"
+  pbs_mom_enable="YES" ;;
+bs[0-9]*|sx[0-9]*)
+  pbs_mom_enable="YES" ;;
+bstest*) ;;
+    </pre>
+  </div>
+  <div class="slide">
+    <h1>out-of-band</h1>
+    <ul>
+      <li>IPMI</li>
+      <li>IP-KVM</li>
+      <li>блейд-шасси</li>
+      <li>IP-managed PDU</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>пример box-reset.sh</h1>
+    <pre class="smaller smaller">
+case $box in
+bs[1-9]|bs[1-9][0-9])
+  bs=${box#bs}
+  bsnum=$(( ( $bs - 1 ) % 14 + 1 ))
+  bcnum=$(( ( $bs - 1 ) / 14 + 1 ))
+  clogin -c "env -T system:blade[$bsnum];reset;exit"\
+    bc${bcnum}-amm ;;
+sx[1-4])
+  ipmitool -I lan -H $box-bmc -U manager\
+    -f ~/ipmitool.pass\ chassis power reset ;;
+*)
+  echo "Box $box not recognized" ;; esac; done
+    </pre>
+  </div>
+  <div class="slide">
+    <h1>Аудит</h1>
+    <ul>
+      <li>сказочное средство от политических и технических проблем</li>
+      <li>отличная реализация во FreeBSD</li>
+      <li>пишется локально, регулярно перемещается в /nfs/data</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>мониторинг</h1>
+    <ul>
+      <li>дело вкуса</li>
+      <li>ganglia удобна, расширяема, заточена под кластеры, multicast</li>
+      <li>zabbix, nagios, munin, …</li>
+      <li>правильная архитектура не будет будить вас в 3 ночи</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>обновления прошивок</h1>
+    <ul>
+      <li>худо бедно работают для многого под Windows и Linux</li>
+      <li>под FreeBSD - изредка</li>
+      <li>всё можно обновить по PXE</li>
+      <li>вспомни DOS - сэкономишь 10 перезагрузок</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>отказы железа</h1>
+    <ul>
+      <li>штатная, рутинная, регулярная ситуация</li>
+      <li>не должна ни на чём отражаться</li>
+      <li>автоматизирована по вкусу (autosupport, etc)</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>проблемы</h1>
+    <ul>
+      <li>всё спокойно и по регламенту</li>
+      <li>непредусмотренные проблемы регламентируются</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Где же идеал?</h1>
+    <ul>
+      <li>распределённое хранение - NFS v4.x (pNFS, FedFS)</li>
+      <li>персоны, файлы, процессы и <em>машины</em> в ролевых группах</li>
+      <li>простое ролевое ветвление во всех конфигах</li>
+      <li>рабочие pam_ldap/nss_ldap/nscd, поддержка ролей</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Облачные десктопы</h1>
+    <ul>
+      <li>stateful рабочие станции - зло</li>
+      <li>сетевые десктопы - не экономия, а единственный способ жизни</li>
+      <li>залежи неспользованных ресурсов</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Герои времени</h1>
+    <ul>
+      <li>Microsoft - самое широкое применение LDAP и Kerberos</li>
+      <li>Microsoft - группировка машин</li>
+      <li>Microsoft - GPO, допускающие ролевую парадигму</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Будущее</h1>
+    <ul>
+      <li>virtualization</li>
+      <li>xgrid</li>
+      <li>VDI</li>
+      <li>спасение от IETF</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Вопросы?</h1>
+    <ul>
+      <li>а почему не OpenBSD?</li>
+      <li>как настроить rc.conf.d под Windows 7?</li>
+      <li>как можно применить кластерные технологии на одном отдельном сервере?</li>
+    </ul>
   </div>
   <div class="slide titlepage">
-    <h2><a href="http://wiki.cenkes.org/Cenkes/pNFSv4">wiki.cenkes.org/pNFSv4</a></h2>
-    <h4><a href="http://www.NFSv4.org/">www.NFSv4.org</a></h4>
-    <h4><a href="http://www.pNFS.com/">www.pNFS.com</a></h4>
-    <h4><a href="http://tools.ietf.org/wg/nfsv4/">IETF NFSv4 WG</a></h4>
+    <h2><a href="http://wiki.cenkes.org/Cenkes/ClusterBSD">wiki.cenkes.org/ClusterBSD</a></h2>
   </div>
 </body>
 </html>
