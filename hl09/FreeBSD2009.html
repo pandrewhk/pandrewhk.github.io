@@ -19,7 +19,7 @@
 </script>
 </head>
 <body>
-  <div class="slide scr"><img src="blueball-blur-zoom.png" alt="Blueball" /></div></div>
+  <div class="slide scr"><img src="blueball-blur-zoom.png" alt="Blueball" /></div>
   <div class="slide cover title titlepage">
     <h1>FreeBSD 2009</h1>
     <h2>живее всех живых</h2>
@@ -74,13 +74,13 @@
     <ul>
       <li>Xen domU — пока только 32-bit</li>
       <li>Jails v2</li>
-      <ul>
+      <li><ul>
 	<li>multi-IPv4/v6/no-IP</li>
 	<li>persistent jails</li>
 	<li>иерахические jails</li>
 	<li>привязка к CPU</li>
 	<li>CPU/RAM ограничения - на подходе</li>
-      </ul>
+      </ul></li>
       <li>Sun VirtualBox в режиме Host</li>
     </ul>
   </div>
@@ -101,9 +101,9 @@
       <li>multi-FIB маршрутизация — setfib</li>
       <li>802.11s mesh, D3.03</li>
       <li>vimage/virtnet</li>
-      <ul>
+      <li><ul>
 	<li>IMUNES</li>
-      </ul>
+      </ul></li>
       <li>ECMP — multipath routing, RADIX_MPATH</li>
       <li>Zero-copy BPF — tcpdump на скорости 10gbps</li>
       <li>переписан ARP</li>
@@ -113,9 +113,9 @@
     <h1>разработка/дебаг</h1>
     <ul>
       <li>DTrace</li>
-      <ul>
+      <li><ul>
 	<li>vfs/nfs probes</li>
-      </ul>
+      </ul></li>
       <li>procstat</li>
       <li>kernel textdumps</li>
       <li>ddb scripting</li>
@@ -146,9 +146,9 @@
     <ul>
       <li>PowerPC G5, POWER3/4</li>
       <li>UltraSPARC III/IIIi</li>
-      <ul>
+      <li><ul>
 	<li>поддержка интерфейсов на Sun Fire v440</li>
-      </ul>
+      </ul></li>
       <li>много новых типов ARM/Xscale</li>
     </ul>
   </div>
@@ -200,10 +200,10 @@
       <li>мы избегаем GPLv3 в базовой системе</li>
       <li>поэтому GCC давно не обновлялся</li>
       <li>плавно переходим на LLVM/Clang</li>
-      <ul>
+      <li><ul>
 	<li>ядро i386/amd64 уже работает</li>
 	<li>userland собирается на 99%</li>
-      </ul>
+      </ul></li>
       <li>Apple резво разрабатывает Clang</li>
     </ul>
   </div>
@@ -223,9 +223,9 @@
       <li>форсированное улучшение поддержки arm</li>
       <li>уверенно занимаем промышленный embedded-рынок</li>
       <li>уверенно шагаем в пользовательский embedded-рынок</li>
-      <ul>
+      <li><ul>
 	<li>свои люди в тылу врага :-)</li>
-      </ul>
+      </ul></li>
     </ul>
   </div>
   <div class="slide">
@@ -242,9 +242,9 @@
     <ul>
       <li>глубокая модульность сетевога стэка</li>
       <li>GENERIC+modules должно хватать всем</li>
-      <ul>
+      <li><ul>
 	<li>binary-only системы, обновления ядра freebsd-update</li>
-      </ul>
+      </ul></li>
       <li>kexec для горячей перезагрузки ядра</li>
       <li>развитие RDMA, поддержка InfiniBand</li>
     </ul>
@@ -282,7 +282,7 @@
     <h4><a href=
     "http://ivoras.sharanet.org/freebsd/freebsd9.html">ivoras.sharanet.org/freebsd/freebsd8.html</a></h4>
     <h4><a href=
-    "http://wiki.freebsd.org/FreeBSD9">wiki.freebsd.org/FreeBSD9</a></h2>
+    "http://wiki.freebsd.org/FreeBSD9">wiki.freebsd.org/FreeBSD9</a></h4>
     <h4><a href=
     "http://wiki.freebsd.org/SummerOfCode2009Projects">wiki.freebsd.org/SummerOfCode2009Projects</a></h4>
     <h4>/usr/src/UPDATING</h4>
