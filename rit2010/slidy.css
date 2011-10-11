@@ -1,7 +1,13 @@
+@page {
+	size: 297mm 223mm;
+	margin: 0px 0px 0px 0px;
+}
+
 body {
   color: #00FF00;
   background-color: black;
   font-family: sans-serif;
+  font-size: 200%;
   margin: 0 0 0 0;
   padding: 0 0 0 0;
 }
@@ -39,13 +45,21 @@ div.slide.scr{
 }
 
 div.slide.scr img{
-	height: 100%;
+	width: 100%;
 }
 
 div.slide.titlepage {
   text-align: center;
   padding-top: 15%;
   background: url(logo.png);
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-attachment: fixed;
+}
+div.slide.titlepage21 {
+  text-align: center;
+  padding-top: 15%;
+  background: url(logo21.png);
   background-repeat: no-repeat;
   background-position: top left;
   background-attachment: fixed;

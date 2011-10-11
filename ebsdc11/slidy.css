@@ -1,5 +1,5 @@
 @page {
-	size: 297mm 180mm;
+	size: 297mm 223mm;
 	margin: 0px 0px 0px 0px;
 }
 
@@ -52,6 +52,14 @@ div.slide.titlepage {
   text-align: center;
   padding-top: 15%;
   background: url(logo.png);
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-attachment: fixed;
+}
+div.slide.titlepage21 {
+  text-align: center;
+  padding-top: 15%;
+  background: url(logo21.png);
   background-repeat: no-repeat;
   background-position: top left;
   background-attachment: fixed;
