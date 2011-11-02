@@ -1,0 +1,3 @@
+Unix as a Cloud
+
+A look at the problems arising from using multiple heterogeneous highly distributed instances of Unix (and FreeBSD in particular) as a single computing instance — a virtualization-free private cloud. Foremostly managing overall system complexity with incremental improvements to the OS.
