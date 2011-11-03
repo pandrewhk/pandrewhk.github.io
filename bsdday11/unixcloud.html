@@ -28,19 +28,19 @@ vim: set expandtab
   <div class="slide titlepage">
     <h1>Cloud Computing</h1>
 	<br/>
-	<h2>Utility ⇒ Ideology<h2>
+	<h2>Utility ⇒ Ideology</h2>
   </div>
   <div class="slide titlepage">
     <h1>User Perspective</h1>
 	<br/>
-	<h2>Computer ⇒ Acess<h2>
+	<h2>Computer ⇒ Acess</h2>
 	<br/>
-	<h2>Server ⇒ Service<h2>
+	<h2>Server ⇒ Service</h2>
   </div>
   <div class="slide">
     <h1>Juggernaut Pioneers</h1>
     <ul>
-      <li>Google, Facebook &amp; the other $1B+ startups</li>
+      <li>Google, Facebook &amp; other $1B+ startups</li>
       <li>rigidly centralized</li>
       <li>hugely inefficient</li>
     </ul>
@@ -77,6 +77,78 @@ vim: set expandtab
       <li>complete reliance on open-source ecology</li>
     </ul>
   </div>
+  <div class="slide">
+    <h1>Heterogeny</h1>
+    <ul>
+      <li>owned (4 DCs), rented (5 DCs), virtual</li>
+      <li>boot from HDD, SSD, PXE/NFS, USB flash</li>
+      <li>varying access, expected uptime and security</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Heterogeneity</h1>
+    <ul>
+      <li>primary roles: storage, processing, web, DB, memcache, sphinx</li>
+      <li>hardware: from small virtual nodes to 72TB machines</li>
+      <li>network: private/open, controlled/provided</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Cloud Ideology</h1>
+    <ul>
+      <li>multi-machine, multi-location abstractions</li>
+      <li>failure anticipation and remediation</li>
+      <li>deep automation</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Unix as a Cloud</h1>
+    <ul>
+      <li>lack of abstraction beyond a single host</li>
+      <li>virtually zero hardware/kernel failure tolerance</li>
+      <li>antique userland with manual transmission</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Storage</h1>
+    <ul>
+      <li>reliable storage, processing &amp; streaming in one</li>
+      <li>UFS2 per hard drive</li>
+      <li>sha256-named objects, mapped to hard drives</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Processing</h1>
+    <ul>
+      <li>custom DB-backed dispatcher</li>
+      <li>fault-tolerant race resolution</li>
+      <li>limits and error handling</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>Configuration</h1>
+    <ul>
+      <li>/ on NFS ⇒ / in git</li>
+      <li>role-aware/multi-role config files</li>
+      <li>LDAP ⇒ passwd(5) in git</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>The Problem</h1>
+    <ul>
+      <li>big clouds have very busy engineers working on them</li>
+      <li>very little sharing (Hadoop, OpenStack)</li>
+      <li>seminal opportunity for BSD</li>
+    </ul>
+  </div>
+  <div class="slide">
+    <h1>The Solution</h1>
+    <ul>
+      <li>advocate sharing on the OS level (instead of middleware)</li>
+      <li>start making BSD more convenient for large users</li>
+      <li>embrace cloud ideology as a course of action</li>
+    </ul>
+  </div>
   <div class="slide titlepage">
     <h1>questions?</h1>
     <br/>
@@ -84,6 +156,5 @@ vim: set expandtab
     <br/>
     <h1><a href="mailto:andrew@dreamindustries.ru">andrew@di.vc</a></h1>
   </div>
-  <div class="slide scr"><img src="" alt="" /></div>
 </body>
 </html>
