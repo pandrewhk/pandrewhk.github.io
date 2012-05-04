@@ -1,0 +1,112 @@
+<div class="slide titlepage">
+  <h1>~, / and SQL in DVCS</h1>
+  <h2>Andrew Pantyukhin</h2>
+  <h2>infofarmer@FreeBSD.org</h2>
+</div>
+<div class="slide titlepage">
+  <h1>cloud is tough</h1>
+</div>
+<div class="slide titlepage">
+  <h1>not a cluster</h1>
+</div>
+<div class="slide titlepage">
+  <h1>extremely diverse infrastructure</h1>
+</div>
+<div class="slide titlepage">
+  <h1>general purpose</h1>
+</div>
+<div class="slide titlepage">
+  <h1>ops have to live on hundreds of machines</h1>
+  <h2>(at least until the machines turn sentient)</h2>
+</div>
+<div class="slide titlepage">
+  <h1>+ laptops, other projects</h1>
+</div>
+<div class="slide titlepage">
+  <h1>can haz one .zshrc everywhere?</h1>
+</div>
+<div class="slide titlepage">
+  <h1>~/.git</h1>
+  <h2>ShowUntrackedFiles = False</h2>
+  <h2>tmux || screen || zsh || bash || tcsh || sh</h2>
+</div>
+<div class="slide titlepage">
+  <h1>no ultra-symlinker?</h1>
+  <h2>no inotify auto-commit magic?</h2>
+</div>
+<div class="slide titlepage">
+  <h1>KISS</h1>
+  <h2>1 branch</h2>
+  <h2>1 repo</h2>
+</div>
+<div class="slide titlepage">
+  <h1>happy CLI life in BSD, OSX, Linux</h1>
+</div>
+<div class="slide titlepage">
+  <h1>wait, but I'm root</h1>
+</div>
+<div class="slide titlepage">
+  <h1>LDAP</h1>
+  <h2>Kerberos</h2>
+  <h2>#PHAIL</h2>
+</div>
+<div class="slide titlepage">
+  <h1>can haz rc.conf, passwd everywhere?</h1>
+</div>
+<div class="slide titlepage">
+  <h1>/.git</h1>
+  <h2>1 branch</h2>
+  <h2>1 repo</h2>
+</div>
+<div class="slide titlepage">
+  <h1>registry => file system</h1>
+  <h2>DVCS the best master-master</h2>
+  <h2>(until you try to automate)</h2>
+</div>
+<div class="slide titlepage">
+  <h1>but... roles?</h1>
+  <h2>ROLES!</h2>
+</div>
+<div class="slide titlepage">
+  <h1>hosts in passwd(5)</h1>
+  <h2>roles in group(5)</h2>
+  <h2>aware.map — who in the world am I?</h2>
+</div>
+<div class="slide titlepage">
+  <h1>ntpd_enable="YES"</h1>
+  <h2>role.www() { nginx_enable="YES" }</h2>
+  <h2>role.host7() { hack_enable="YES" }</h2>
+</div>
+<div class="slide titlepage">
+  <h1>role-aware configs FTW</h1>
+  <h2>sudo, nginx, sh(1) sourced</h2>
+  <h2>painful workarounds for other</h2>
+</div>
+<div class="slide titlepage">
+  <h1>crazy. can haz also SQL?</h1>
+</div>
+<div class="slide titlepage">
+  <h1>functions and views idempotent</h1>
+  <h2>dumped to separate files, versioned</h2>
+  <h2>edit in FS or DB</h2>
+</div>
+<div class="slide titlepage">
+  <h1>just views and funcs?!</h1>
+  <h2>enjoy your pyrseas</h2>
+  <h2>or wait for *SQL to get out of 70s</h2>
+</div>
+<div class="slide titlepage">
+  <h1>caveats</h1>
+  <h2>(what could possibly go wrong?)</h2>
+</div>
+<div class="slide titlepage">
+  <h1>git is beautiful</h1>
+  <h2>until you  marry it</h2>
+  <h2>needs to be reinvented - soon</h2>
+</div>
+<div class="slide titlepage">
+  <h1>post-checkout chown && chmod</h1>
+</div>
+<div class="slide titlepage">
+  <h1>push for role-aware cloud-ready config formats</h1>
+</div>

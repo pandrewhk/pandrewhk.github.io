@@ -1,0 +1,84 @@
+~, / and SQL in DVCS
+Andrew Pantyukhin
+infofarmer@FreeBSD.org
+
+cloud is tough
+
+not a cluster
+
+extremely diverse infrastructure
+
+general purpose
+
+ops have to live on hundreds of machines
+(at least until the machines turn sentient)
+
++ laptops, other projects
+
+can haz one .zshrc everywhere?
+
+~/.git
+ShowUntrackedFiles = False
+tmux || screen || zsh || bash || tcsh || sh
+
+no ultra-symlinker?
+no inotify auto-commit magic?
+
+KISS
+1 branch
+1 repo
+
+happy CLI life in BSD, OSX, Linux
+
+wait, but I'm root
+
+LDAP
+Kerberos
+#PHAIL
+
+can haz rc.conf, passwd everywhere?
+
+/.git
+1 branch
+1 repo
+
+registry => file system
+DVCS the best master-master
+(until you try to automate)
+
+but... roles?
+ROLES!
+
+hosts in passwd(5)
+roles in group(5)
+aware.map — who in the world am I?
+
+ntpd_enable="YES"
+role.www() { nginx_enable="YES" }
+role.host7() { hack_enable="YES" }
+
+role-aware configs FTW
+sudo, nginx, sh(1) sourced
+painful workarounds for other
+
+crazy. can haz also SQL?
+
+functions and views idempotent
+dumped to separate files, versioned
+edit in FS or DB
+
+just views and funcs?!
+enjoy your pyrseas
+or wait for *SQL to get out of 70s
+
+caveats
+(what could possibly go wrong?)
+
+git is beautiful
+until you  marry it
+needs to be reinvented - soon
+
+post-checkout chown && chmod
+
+push for role-aware cloud-ready config formats
+
