@@ -1,0 +1,11 @@
+FreeBSD Unified Deployment and Configuration Management
+
+A practical approach to managing highly heterogeneous installations
+
+When we needed dozens of storage, processing and front-end machines for a prototype of a new cloud media service, we developed a cost-effective, but technically challenging hybrid strategy of purchased, rented dedicated and rented virtual servers. FreeBSD was an easy choice thanks to its performance, reliability, and unparalleled ease of management on a per–node level. However, while the number of infrastructure–level tasks kept growing and we needed to scale through beta and release stages, there was an obvious need to reduce complexity.
+
+After a year of tentative design and experimenting with partial solutions, we started implementing in November 2011, the result-in-progress being something we call unified configuration management (and deployment), bringing immediate returns on time invested.
+
+The talk focuses on a new unified approach to deploying and managing modern versions of FreeBSD across a wide variety of technical and administrative circumstances: different countries, data centers, hardware, access policies, boot methods, networking, support contracts, machine roles, etc.
+
+While avoiding any popular Linux-centric CM systems, such as Puppet, Chef, and CFEngine, we achieve very low complexity by leveraging rc(8), loader(8), glabel(8) and other existing instruments, such as pkgng, to their potential as necessary. The cornerstone is keeping configuration and deployment versioned and unified — same across all cases, with no duplication of common parts and very simple specification of per-role/per-case peculiarities. The approach spans everything from installation and booting to managing third-party and custom site-specific software. The method is being actively developed and applied in production environment of a popular online music service.

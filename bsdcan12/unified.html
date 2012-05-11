@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+vim:ts=8:sw=2
+vim: set expandtab
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang=
+"ru-RU">
+<head>
+  <title>Unified</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="copyright" content="Copyright © 2011 Andrew Pantyukhin" />
+  <link rel="stylesheet" href="slidy.css" type="text/css" media=
+  "screen, projection, print" />
+  <script src="slidy.js" charset="utf-8" type="text/javascript">
+</script>
+</head>
+<body>
+<div class="slide titlepage">
+  <h1>FreeBSD Unified Configuration</h1>
+  <h2>Andrew Pantyukhin</h2>
+  <h2>infofarmer@FreeBSD.org</h2>
+</div>
+<div class="slide titlepage">
+  <h1>once upon a time</h1>
+  <h2>a private cloud</h2>
+</div>
+<div class="slide titlepage">
+  <h1>petabytes of data</h1>
+  <h2>dozens of gigabits of transfers</h2>
+  <h2>teraflops of processing</h2>
+</div>
+<div class="slide titlepage">
+  <h1>4 countries</h1>
+  <h2>10 cities</h2>
+  <h2>13 data centers</h2>
+</div>
+<div class="slide titlepage">
+  <h1>11 service providers</h1>
+  <h2>15 support contracts</h2>
+  <h2>5 SLA types</h2>
+</div>
+<div class="slide titlepage">
+  <h1>~100 machines</h1>
+  <h2>~20 hardware configurations</h2>
+  <h2>~1000 hard drives</h2>
+</div>
+<div class="slide titlepage">
+  <h1>30 local networks</h1>
+  <h2>5 network types</h2>
+  <h2>7 out-of-band console types</h2>
+</div>
+<div class="slide titlepage">
+  <h1>1 operating system</h1>
+  <h2>(potentially more)</h2>
+  <h2>5 boot types</h2>
+</div>
+<div class="slide titlepage">
+  <h1>1 systems engineer</h1>
+  <h2>1 network engineer</h2>
+  <h2>1 field engineer</h2>
+</div>
+<div class="slide titlepage">
+  <h1>initial tactics</h1>
+  <h2>owned -&gt; cluster</h2>
+  <h2>leased -&gt; setup &amp; forget</h2>
+</div>
+<div class="slide titlepage">
+  <h1>briefly considered</h1>
+  <h2>puppet, chef, cfengine</h2>
+  <h2>scripted per-node management</h2>
+</div>
+<div class="slide titlepage">
+  <h1>priorities</h1>
+  <h2>extremely low ops load and complexity</h2>
+  <h2>extremely high performance and flexibility</h2>
+</div>
+<div class="slide titlepage">
+  <h1>solution</h1>
+  <h2>unified configuration management</h2>
+  <h2>unified deployment</h2>
+</div>
+<div class="slide titlepage">
+  <h1>unified?</h1>
+  <h2>exactly same root fs everywhere</h2>
+  <h2>exactly same configs everywhere</h2>
+</div>
+<div class="slide titlepage">
+  <h1>/.git</h1>
+  <h2>/usr/local/project/.git</h2>
+  <h2>/usr/home/*/.git</h2>
+</div>
+<div class="slide titlepage">
+  <h1>fully distributed</h1>
+  <h2>flexible semi-auto master-master sync</h2>
+  <h2>no symlinking, copying (almost)</h2>
+</div>
+<div class="slide titlepage">
+  <h1>concentrated complexity</h1>
+  <h2>smarter specialization</h2>
+  <h2>role-aware configs</h2>
+</div>
+<div class="slide titlepage">
+  <h1>roles</h1>
+  <h2>passwd, group</h2>
+  <h2>aware.map</h2>
+</div>
+<div class="slide titlepage">
+  <h1>role-aware boot</h1>
+  <h2>who am I? what are my MACs?</h2>
+  <h2>MAC -&gt; aware.map -&gt; host -&gt; roles</h2>
+</div>
+<div class="slide titlepage">
+  <h1>rc.conf - role-aware</h1>
+  <h2>shell script</h2>
+  <h2>intricate evaluation</h2>
+</div>
+<div class="slide titlepage">
+  <h1>ntpd_enable=&quot;YES&quot;</h1>
+  <h2>role.www() { nginx_enable=&quot;YES&quot; }</h2>
+  <h2>role.host1() { hack_enable=&quot;YES&quot; }</h2>
+</div>
+<div class="slide titlepage">
+  <h1>for i in $myroles</h1>
+  <h2>role.$i</h2>
+</div>
+<div class="slide titlepage">
+  <h1>nginx.conf role-compatible</h1>
+  <h2>{ server_name www1; }</h2>
+  <h2>{ server_name www2; }</h2>
+</div>
+<div class="slide titlepage">
+  <h1>syslog.conf role-unaware</h1>
+  <h2>syslog.conf - most nodes</h2>
+  <h2>syslog.conf.collect - log collector</h2>
+</div>
+<div class="slide titlepage">
+  <h1>rc.conf-based work-around</h1>
+  <h2>role.logcol() {</h2>
+  <h2>syslog_flags=&quot;-c syslog.conf.collect&quot; }</h2>
+</div>
+<div class="slide titlepage">
+  <h1>fstab role-unaware</h1>
+  <h2>#empty</h2>
+  <h2>loader.conf, scripts</h2>
+</div>
+<div class="slide titlepage">
+  <h1>boot drive</h1>
+  <h2>/dev/ufs/root1 - 10G</h2>
+  <h2>/dev/ufs/root2 - 10G</h2>
+</div>
+<div class="slide titlepage">
+  <h1>boot drive</h1>
+  <h2>/dev/gpt/swapserial - 4G</h2>
+  <h2>/dev/ufs/serial - leftover</h2>
+</div>
+<div class="slide titlepage">
+  <h1>loader.conf</h1>
+  <h2>vfs.mountroot</h2>
+  <h2>falls back to NFS root</h2>
+</div>
+<div class="slide titlepage">
+  <h1>deployment</h1>
+  <h2>aware.map, configs adjustment</h2>
+  <h2>dhcp, etc</h2>
+</div>
+<div class="slide titlepage">
+  <h1>deployment</h1>
+  <h2>find &amp; partition a suitable drive</h2>
+  <h2>untar recent image into root1</h2>
+</div>
+<div class="slide titlepage">
+  <h1>full upgrade</h1>
+  <h2>untar new image into root2</h2>
+  <h2>pivot root1&lt;-&gt;root2 (kernel!!)</h2>
+</div>
+<div class="slide titlepage">
+  <h1>full upgrade</h1>
+  <h2>rsync? pkgng?</h2>
+  <h2>freebsd-update?</h2>
+</div>
+<div class="slide titlepage">
+  <h1>pkg upgrade</h1>
+  <h2>pkgng</h2>
+</div>
+<div class="slide titlepage">
+  <h1>continuous upgrade</h1>
+  <h2>git pull</h2>
+</div>
+<div class="slide titlepage">
+  <h1>edit on any box</h1>
+  <h2>commit, push</h2>
+  <h2>powerful conflict resolution</h2>
+</div>
+<div class="slide titlepage">
+  <h1>pretty scalable</h1>
+</div>
+<div class="slide titlepage">
+  <h1>git is awful</h1>
+  <h2>rsync is lacking</h2>
+  <h2>need more smart configs</h2>
+</div>
+<div class="slide titlepage">
+  <h1>pretty simple</h1>
+  <h2>fool-proof</h2>
+  <h2>single-view cloud-wide config</h2>
+</div>
+<div class="slide titlepage">
+  <h1>Q&amp;A</h1>
+</div>
+</body>
+</html>
