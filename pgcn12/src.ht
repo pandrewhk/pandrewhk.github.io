@@ -1,0 +1,87 @@
+<div class="slide titlepage">
+  <h1>15M media objects</h1>
+  <h2>3PB raw space</h2>
+  <h2>storage, streaming, processing</h2>
+</div>
+<div class="slide titlepage">
+  <h1>HDFS? Isilon?</h1>
+  <h2>custom solution</h2>
+</div>
+<div class="slide titlepage">
+  <h1>1000s hard drives</h1>
+  <h2>file system per drive</h2>
+  <h2>filename = sha256(file)</h2>
+</div>
+<div class="slide titlepage">
+  <h1>dispatching</h1>
+  <h2>ingestion, rebalancing</h2>
+  <h2>encoding, analysis</h2>
+</div>
+<div class="slide titlepage">
+  <h1>PostgreSQL!</h1>
+  <h2>(of course)</h2>
+</div>
+<div class="slide titlepage">
+  <h1>entities</h1>
+  <h2>sha (asset), hdd, chassis</h2>
+  <h2>metadata, actions, status</h2>
+</div>
+<div class="slide titlepage">
+  <h1>15M master objects</h1>
+  <h2>25M derivatives</h2>
+  <h2>70M copies</h2>
+</div>
+<div class="slide titlepage">
+  <h1>200GB core</h1>
+  <h2>500GB XML processing</h2>
+  <h2>2TB+ overall</h2>
+</div>
+<div class="slide titlepage">
+  <h1>custom types</h1>
+  <h2>enum</h2>
+  <h2>native/wrappers</h2>
+</div>
+<div class="slide titlepage">
+  <h1>hashtypes</h1>
+  <h2>shatypes</h2>
+  <h2>+ crc32, bugfixes</h2>
+</div>
+<div class="slide titlepage">
+  <h1>actions</h1>
+  <h2>fully async, fail-over</h2>
+  <h2>dumb polling</h2>
+</div>
+<div class="slide titlepage">
+  <h1>smart locking</h1>
+  <h2>update set t=now()where t old</h2>
+  <h2>update returning</h2>
+</div>
+<div class="slide titlepage">
+  <h1>XML</h1>
+  <h2>third-party metadata</h2>
+  <h2>stored, processed in PG</h2>
+</div>
+<div class="slide titlepage">
+  <h1>research</h1>
+  <h2>large-scale action logging</h2>
+</div>
+<div class="slide titlepage">
+  <h1>production</h1>
+  <h2>aggregated views of dispatcher</h2>
+</div>
+<div class="slide titlepage">
+  <h1>distributed logic</h1>
+  <h2>dispatcher, XML processing, production, research</h2>
+  <h2>full-mesh data exchange</h2>
+</div>
+<div class="slide titlepage">
+  <h1>table data transfer</h1>
+  <h2>slow or inflexible</h2>
+  <h2>simple custom scripts, diff</h2>
+</div>
+<div class="slide titlepage">
+  <h1>dream industries</h1>
+  <h2>disruptive innovation lab</h2>
+  <h2>funding, collaborating</h2>
+  <h2>inviting, hiring</h2>
+</div>

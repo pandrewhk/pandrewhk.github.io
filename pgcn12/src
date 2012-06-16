@@ -1,0 +1,134 @@
+15M media objects
+
+3PB raw space
+
+storage, streaming, processing
+
+
+HDFS? Isilon?
+
+custom solution
+
+
+1000s hard drives
+
+file system per drive
+
+filename = sha256(file)
+
+
+dispatching
+
+ingestion, rebalancing
+
+encoding, analysis
+
+
+
+PostgreSQL!
+
+(of course)
+
+
+
+entities
+
+sha (asset), hdd, chassis
+
+metadata, actions, status
+
+
+
+15M master objects
+
+25M derivatives
+
+70M copies
+
+
+
+200GB core
+
+500GB XML processing
+
+2TB+ overall
+
+
+
+custom types
+
+enum
+
+native/wrappers
+
+
+
+hashtypes
+
+shatypes
+
++ crc32, bugfixes
+
+
+
+actions
+
+fully async, fail-over
+
+dumb polling
+
+
+
+smart locking
+
+update set t=now()where t old
+
+update returning
+
+
+
+XML
+
+third-party metadata
+
+stored, processed in PG
+
+
+
+research
+
+large-scale action logging
+
+
+
+production
+
+aggregated views of dispatcher
+
+
+
+distributed logic
+
+dispatcher, XML processing, production, research
+
+full-mesh data exchange
+
+
+
+table data transfer
+
+slow or inflexible
+
+simple custom scripts, diff
+
+
+
+dream industries
+
+disruptive innovation lab
+
+funding, collaborating
+
+inviting, hiring
+
+
