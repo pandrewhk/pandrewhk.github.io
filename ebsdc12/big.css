@@ -1,7 +1,7 @@
 body {
   -webkit-text-stroke-width: 3px;
   -webkit-text-stroke-color: black;
-  font-family: 'Helvetica';
+  font-family: 'Menlo';
   letter-spacing:-5px;
   background:#000;
   background-size:100%;
