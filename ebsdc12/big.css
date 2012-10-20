@@ -1,8 +1,11 @@
 body {
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: black;
   font-family: 'Helvetica';
   letter-spacing:-5px;
   background:#000;
   background-size:100%;
+  background-repeat: no-repeat;
   color:#0f0;
   margin:0;
   padding:0;
