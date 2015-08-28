@@ -1,0 +1,64 @@
+Upgrade notion
+Config files (RPMv1)
+Database
+Centralization is evil?
+Verifications
+Tests
+Better build-env-arch(-cross?) support
+Portrevision != Package release number, it should or we should invent something to reflect the latter
+More metainfo, including sigs
+Relocation (alt prefix)
+Subpackages
+
+cvs logs of bsd.port.mk, commits per year, starting 21 August 1994
+
+better "already included" detection
+
+Conary - incremental distfiles/package updates <=> portsnap
+
+Ututo - packages optimized for CPU's
+
+Gobolinux - interesting hier, symlinks
+http://en.wikipedia.org/wiki/GoboLinux
+
+Maintainer = name <address> <= recognition
+
+Formatting => fully justified 75-char lines
+Spelling => comments and description => linguistics, do we need "a/an" at the beginning
+
+priorities =< 6.7 What is an Essential Required, Important, Standard, Optional, or Extra package?
+
+alternating deps/programs <= virtual packages <= 6.8 What is a Virtual Package? <= /etc/alternatives/ symlinks with priorities
+
+more than deps <= 6.9 What is meant by saying that a package Depends, Recommends, Suggests, Conflicts, Replaces or Provides another package? <= when deinstalling a pkg, check files with failed checksums against checksums in other installed packages and don't touch them if they match
+
+strict policy on updating running programs, just stopping them is unacceptable
+
+maybe make some per-port super portrevisions, which never decrease, but increase with each change - and judge what's newer by this. It would solve a bunch of problems, as well as rid us of traditional portrevisions and portepochs.
+
+maybe some port id, which survives repomoves would also help immensely.
+
+keep distfiles separated into categories/ports for better scalability.
+
+uniform <= 3.9.1 Prompting in maintainer scripts
+
+mandatory copyright notices, be it "GPL" or a multipage license
+
+set -e at the start of most commands in makefiles
+
+#!/usr/bin/make -f
+
+multiple maintainers <= uploaders in deb
+
+scripts idempotency
+
+portname = librarynamesoversion - encourages lazy so bumps, but allows for greater flexibility
+
+WNPP resource - http://www.debian.org/devel/wnpp/
+Maintainers' resources - https://nm.debian.org/
+
+Encourage better familiarity with BSD and non-BSD, FOSS and non-FOSS projects. Maybe have some virtual or real boxes available to committers.
+
+Standardized building envs => distributed manual pkg builds (debian) => distributed auto pkg builds (@home)
+
+Package sizes (installed/packaged)

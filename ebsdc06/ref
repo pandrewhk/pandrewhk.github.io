@@ -1,0 +1,50 @@
+http://www.FreeBSD.org/doc/en_US.ISO8859-1/books/handbook/ports.html
+- FreeBSD Handbook: Installing Applications: Packages and Ports
+http://www.FreeBSD.org/doc/en_US.ISO8859-1/books/porters-handbook/index.html
+- FreeBSD Porter's Handbook
+http://www.NetBSD.org/Documentation/pkgsrc/
+- The pkgsrc guide
+http://www.OpenBSD.org/porting.html
+- Building an OpenBSD port
+http://www.OpenBSD.org/ports.html
+- OpenBSD Ports and Packages
+http://www.DragonFlyBSD.org/docs/goals.cgi#packages
+- DragonFly BSD Design Goals: Dealing with Package Installation
+http://www.Gentoo.org/doc/en/handbook/handbook-x86.xml
+- Gentoo Linux x86 Handbook: Working with Gentoo
+http://www.Gentoo.org/proj/en/devrel/handbook/handbook.xml
+- Gentoo Developer Handbook: Guides, Policies
+http://devmanual.Gentoo.org/
+- Gentoo Development Guide
+http://www.Gentoo.org/proj/en/portage/index.xml
+- Gentoo Linux Portage Development
+http://www.Debian.org/doc/FAQ/index.en.html
+- The Debian GNU/Linux FAQ: Basics of the Debian package management system and other chapters
+http://www.Debian.org/doc/debian-policy/
+- Debian Policy Manual
+http://www.Debian.org/doc/manuals/developers-reference/index.en.html
+- Debian Developer's Reference: Managing Packages, Best Packaging Practices and other chapters
+http://www.Debian.org/doc/manuals/maint-guide/index.en.html
+- Debian New Maintainers' Guide
+http://www.Debian.org/doc/manuals/apt-howto/
+- APT HOWTO
+http://slacksite.com/slackware/packages.html
+- Slackware Package Management
+http://kitenet.net/~joey/pkg-comp/
+- Comparing Linux/UNIX Binary Package Formats
+http://www.rPath.com/technology/techoverview/
+- Repository-Based System Management Using Conary
+http://www.freestandards.org/en/LSB
+- Linux Standard Base
+http://www.pathname.com/fhs/
+- Filesystem Hierarchy Standard
+http://www.rpm.org/max-rpm-snapshot/
+- Maximum RPM (development snapshot)
+http://fedora.redhat.com/docs/drafts/rpm-guide-en/
+- RPM Guide by Eric Foster-Johnson
+http://fedoraproject.org/wiki/Packaging/Guidelines
+- Packaging Guidelines by Tom 'spot' Callaway
+http://www.sepp.ee.ethz.ch/
+- SEPP - Software Installation and Sharing System by Tobias Oetiker
+
+Last, but not least - dozens of Wikipedia articles on package management and related topics; over a hundred of manpages from BSD, Linux, Solaris and other operating system, as well as those coming with third-party tools; countless discussions in mailing-lists archives; popular interviews, memoirs, essays concerning package management.

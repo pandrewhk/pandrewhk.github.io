@@ -1,0 +1,45 @@
+Intro
+History
+ Package management in UNIX
+  Package management in BSD
+Nowadays status
+ BSD packages
+ BSD ports
+ Other approaches
+Issues
+ Packages Problems
+ Ports Problems
+ Others have problems, too
+Strong points
+ BSD ports
+  FreeBSD ports
+  OpenBSD ports
+  NetBSD pkgsrc
+ Linux
+  Debian
+  Portage
+Collaboration
+ Inter
+
+feat
+ +rpath appliances
+ +security
+ tracking updates
+ +slots - multi-instancing
+ distcc/ccache
+ FAKE, packaging with no install
+ licensing
+ object-oriented eclasses
+ FHS, LSB
+ docs
+ cross - different freebsd versions, platforms, other OS
+ updating
+ enterprise - multiple boxes, package distribution, web/soap interfaces - HP SD
+ cpan/pear - seamless integration
+ dependencies reloaded - files, libs, packages
+ +Klik - smart move to browser integration
+ +user-mode installation - klik
+Collab
+ education
+ spirit
+ communication
